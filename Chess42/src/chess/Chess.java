@@ -14,6 +14,11 @@ public class Chess {
 			
 			//comment
 			board[7][4] = new King("black");
+			
+			printTable(board);
+		}
+		public static void printTable(ChessPiece[][] board){
+			
 			boolean emp = true;
 			int count = 8;
 			for(int i= 0; i< board.length ;i++ ){
@@ -43,7 +48,7 @@ public class Chess {
 				System.out.print(" "+count--);
 				System.out.println();
 			}
+			
 		}
-		
 		
 }
