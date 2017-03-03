@@ -12,7 +12,7 @@ public class Chess {
 				}
 			}
 			
-			
+			//comment
 			board[7][4] = new King("black");
 			boolean emp = true;
 			int count = 8;
