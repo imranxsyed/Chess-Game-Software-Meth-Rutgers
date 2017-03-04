@@ -3,6 +3,7 @@ package chess;
 public class King extends ChessPiece {
 	
 	public King(String color, int x, int y){
+		type = "King";
 		if(color =="white"){
 			this.color = color;
 			this.x = x;
@@ -35,6 +36,10 @@ public class King extends ChessPiece {
 			}
 			return true;
 		}
+	}
+	
+	public void check(ChessPiece[][] board){
+		return;
 	}
 	
 }

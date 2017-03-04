@@ -4,6 +4,7 @@ public class Queen extends ChessPiece {
 
 	
 	public Queen(String color, int x, int y){
+		type = "Queen";
 		if(color =="white"){
 			this.color = color;
 			this.x = x;
@@ -22,5 +23,8 @@ public class Queen extends ChessPiece {
 		return false;
 	}
 
+	public void check(ChessPiece[][] board){
+		return;
+	}
 	
 }

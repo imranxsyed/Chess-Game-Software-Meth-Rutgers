@@ -25,11 +25,9 @@ public class Chess {
 			ChessPiece[][] board = createTable(); 
 			printTable(board);
 			
-			
-			ChessPiece tmp;
 			//example of projessor using the 
 			ChessPiece temp = board[0][4];
-			if(temp.movePiece(board, "f7" )){
+			/*if(temp.movePiece(board, "f7" )){
 				board[temp.x][temp.y] = temp;
 				board[0][4]=null;
 				tmp = board[temp.x][temp.y];
@@ -43,14 +41,11 @@ public class Chess {
 					printTable(board);
 				}
 			}
+			*/
 			
-			temp = board[0][0];
-			if(temp.movePiece(board, "a1")){
-				board[temp.x][temp.y] = temp;
-				board[0][0]=null;
-				tmp = board[temp.x][temp.y];
-				printTable(board);
-			}
+			temp = board[0][7];
+			temp.movePiece(board, "g8");
+			printTable(board);
 			//updates the board
 						
 			
