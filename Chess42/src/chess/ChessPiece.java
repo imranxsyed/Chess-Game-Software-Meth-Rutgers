@@ -21,9 +21,9 @@ public abstract class ChessPiece {
 	public String getColor(){
 		return color;
 	}
-	public abstract boolean move(int from, int to);
+	public abstract boolean move(ChessPiece[][]board, int from, int to);
 	
-	public void printLocation(){
+	public void getLocation(){
 		System.out.print(location);
 	}
 	public void getName(){
@@ -32,7 +32,7 @@ public abstract class ChessPiece {
 	/*
 	 * to comes in the form of (xy) i.e. e5
 	 */
-	public void movePiece(ChessPiece[][] board, String to){
+	public boolean movePiece(ChessPiece[][] board, String to){
 		//column
 		int ty = to.charAt(0)-97;
 		//row
@@ -45,24 +45,20 @@ public abstract class ChessPiece {
 		//checks for out of boundary entry
 		if(tx>7 ||tx< 0 || ty>7 || ty<0){
 			System.out.println("Error: Out of bound");
-			return;
+			return false;
 		}
+	
 		
-		//checks if the piece there it its own piece
-		
-		if(board[ty][tx]!=null &&board[ty][tx].getColor()==this.getColor()){
-			System.out.println("your piece is there");
-			return;
-		}
-		
+		ChessPiece[][] tempBoard = board;
 		//if move is legal this will changes the current location of the piece
-		if(this.move(tx,ty)){
+		if(this.move(tempBoard, tx,ty)){
 			this.y = ty;
 			this.x = tx;
 			this.location = to;
+			return true;
 		}
 		
-		return;
+		return false;
 		
 	}
 	

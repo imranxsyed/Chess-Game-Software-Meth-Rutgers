@@ -22,23 +22,38 @@ public class Chess {
 		public static void main(String[]args){
 			
 			
-			ChessPiece[][] board= new ChessPiece[8][8];
-			for(int i= 0; i< board.length ;i++ ){
-				for(int j= 0; j< board[i].length; j++){
-					board[i][j]= null;
+			ChessPiece[][] board = createTable(); 
+			printTable(board);
+			
+			
+			ChessPiece tmp;
+			//example of projessor using the 
+			ChessPiece temp = board[0][4];
+			if(temp.movePiece(board, "f7" )){
+				board[temp.x][temp.y] = temp;
+				board[0][4]=null;
+				tmp = board[temp.x][temp.y];
+				printTable(board);
+				int xt = temp.x;
+				int yt = temp.y;
+				if(tmp.movePiece(board, "g8")){
+					System.out.println("attempt");
+					board[tmp.x][tmp.y] = tmp;
+					board[xt][yt]=null;
+					printTable(board);
 				}
 			}
 			
-			
-			board[0][4] = new King("white");
-			
-			printTable(board);
-			ChessPiece temp = board[0][4];
-			temp.movePiece(board, "f8" );
+			temp = board[0][0];
+			if(temp.movePiece(board, "a1")){
+				board[temp.x][temp.y] = temp;
+				board[0][0]=null;
+				tmp = board[temp.x][temp.y];
+				printTable(board);
+			}
 			//updates the board
-			board[temp.x][temp.y] = temp;
-			board[0][4]=null;
-			printTable(board);
+			
+			
 			
 			
 		}
@@ -79,7 +94,50 @@ public class Chess {
 				System.out.print(" "+column.charAt(i)+" ");
 			}
 		System.out.println();
+		System.out.println();
 		return;
+		}
+		
+		private static ChessPiece[][] createTable(){
+			ChessPiece[][] board= new ChessPiece[8][8];
+			for(int i= 0; i< board.length ;i++ ){
+				
+				for(int j= 0; j< board[i].length; j++){
+					/*if(i==1){
+						//fill black pawns 
+						board[i][j]= new Pawn("black",1,j);
+					}else if(i==6){
+						//fills white pawns
+						board[i][j] = new Pawn("white",6,j);
+					}else{
+					*/
+					
+					board[i][j]= null;
+				}
+			}
+			
+			board[0][0] = new Rook("black", 0,0);
+			//board[0][1] = new Knight("black",0,1);
+			//board[0][2] = new Bishop("black",0,2);
+			board[0][3] = new Queen("black", 0,3);
+			board[0][4] = new King("black",0,4);
+			//board[0][5] = new Bishop("black",0,5);
+			//board[0][6] = new Knight("black",0,6);
+			board[0][7] = new Rook("black",0,7);
+			
+			board[7][0] = new Rook("white",7,0);
+			//board[7][1] = new Knight("white",7,1);
+			//board[7][2] = new Bishop("white",7,2);
+			board[7][3] = new Queen("white",7,3);
+			board[7][4] = new King("white",7,4);
+			//board[7][5] = new Bishop("white",7,5);
+			//board[7][6] = new Knight("white",7,6);
+			board[7][7] = new Rook("white",7,7);
+			
+			
+			
+			
+			return board;
 		}
 		
 }

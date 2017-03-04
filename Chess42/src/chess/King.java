@@ -2,25 +2,23 @@ package chess;
 
 public class King extends ChessPiece {
 	
-	public King(String color){
+	public King(String color, int x, int y){
 		if(color =="white"){
 			this.color = color;
-			x = 7;
-			y = 4;
+			this.x = x;
+			this.y = y;
 			location = "e1";
-			name = " wK";
+			name = "wK";
 		}else{
 			this.color = color;
-			x = 0;
-			y = 4;
+			this.x = x;
+			this.y = y;
 			location = "e8";
 			name = "bK";
 		}
 	}
-	public  boolean move(int toX, int toY){
+	public  boolean move(ChessPiece[][] board, int toX, int toY){
 	
-		System.out.println("this: " +this.x + " "+ this.y);
-		System.out.println("input: " + toX+ " "+ toY);
 		int newX = Math.abs(this.x - toX);
 		int newY = Math.abs(this.y - toY);
 		System.out.println(newY);
@@ -30,6 +28,11 @@ public class King extends ChessPiece {
 			System.out.println("Error");
 			return false;
 		}else{
+			//checks if the piece there it its own piece
+			if(board[toX][toY]!=null &&board[toX][toY].getColor()==this.getColor()){
+				System.out.println("your piece is there");
+				return false;
+			}
 			return true;
 		}
 	}
