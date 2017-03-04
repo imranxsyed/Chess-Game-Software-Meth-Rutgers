@@ -52,11 +52,10 @@ public class Chess {
 				printTable(board);
 			}
 			//updates the board
-			
-			
-			
+						
 			
 		}
+		
 		public static void printTable(ChessPiece[][] board){
 			
 			boolean emp = true;
@@ -96,6 +95,7 @@ public class Chess {
 		System.out.println();
 		System.out.println();
 		return;
+		
 		}
 		
 		private static ChessPiece[][] createTable(){
