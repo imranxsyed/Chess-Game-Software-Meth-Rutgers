@@ -30,7 +30,7 @@ public class Chess {
 			}
 			
 			
-			board[0][4] = new King("black");
+			board[0][4] = new King("white");
 			
 			printTable(board);
 			ChessPiece temp = board[0][4];
