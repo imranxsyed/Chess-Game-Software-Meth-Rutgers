@@ -90,11 +90,12 @@ public class Rook extends ChessPiece{
 					System.out.println("your piece is there");
 					return false;
 				}
+				this.hasMoved = true;
 				return true;
 				
 			}
 		}else{
-			System.out.println("invalid move");
+			
 			return false;
 		}
 	}

@@ -6,7 +6,7 @@ public abstract class ChessPiece {
 	public static int checkCount = 0;
 	//set by the x and y axis i.e. e5
 	public String location;
-	
+	boolean hasMoved = false;
 	//name is set by the lower case letter of colored followed by type of piece i.e. "Black King" = bK
 	public String name;
 	public String type;

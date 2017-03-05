@@ -23,18 +23,35 @@ public class King extends ChessPiece {
 		int newX = Math.abs(this.x - toX);
 		int newY = Math.abs(this.y - toY);
 		
+		//checks for possible castling
+		if(this.hasMoved==false && (newY==2) && (newX==0) && (board[this.x][this.y+1]==null) && (board[this.x][this.y+2]==null)){
+			if(board[toX][toY+1]!= null && board[toX][toY+1].getType()=="Rook" && board[toX][toY+1].hasMoved==false){
+				
+				board[toX][toY-1] = board[toX][toY+1];
+				board[toX][toY+1] = null;
+				board[toX][toY-1].location = "f1";
+				board[toX][toY-1].x = 7;
+				board[toX][toY-1].y = 5;
+				return true;
+			}else{
+				return false;
+			}
+		}
+		
 		if(newX>1 || newY>1){
 			return false;
 		}else if(this.y ==toY && this.x == toX){
-			System.out.println("Error");
+			System.out.println("Error: Illegal move");
 			return false;
 		}else{
 			//checks if the piece there it its own piece
 			if(board[toX][toY]!=null &&board[toX][toY].getColor()==this.getColor()){
 				System.out.println("your piece is there");
 				return false;
+			}else{
+				this.hasMoved = true;
+				return true;
 			}
-			return true;
 		}
 	}
 	
