@@ -78,7 +78,8 @@ public class Chess {
 		
 		/**
 		 * This method exhausts all possible options that next player can do to their king 
-		 * in order to avoid checkmate
+		 * in order to avoid checkmate if the count ==8 this means that no matter where the king goes 
+		 * they will lose
 		 * 
 		 * king has at most 8 possible options
 		 * @param king opposite king 
@@ -105,7 +106,7 @@ public class Chess {
 			tempY--;
 			if(tempY>-1 && tempX<8){
 				ChessPiece tempKing = tempBoard[king.x][king.y];
-				if(tempBoard[tempX][tempY]==null){
+				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor()!=king.getColor()){
 					tempBoard[tempX][tempY] = tempKing;
 					tempBoard[king.x][king.y] = null;
 				
@@ -133,7 +134,7 @@ public class Chess {
 			
 			if(tempY>-1){
 				ChessPiece tempKing = tempBoard[king.x][king.y];
-				if(tempBoard[tempX][tempY]==null){
+				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor()!=king.getColor()){
 					tempBoard[tempX][tempY] = tempKing;
 					tempBoard[king.x][king.y] = null;
 			
@@ -161,7 +162,7 @@ public class Chess {
 			tempX = king.x -1;
 			if(tempY>-1 && tempX>-1){
 				ChessPiece tempKing = tempBoard[king.x][king.y];
-				if(tempBoard[tempX][tempY]==null){
+				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor()!=king.getColor()){
 					tempBoard[tempX][tempY] = tempKing;
 					tempBoard[king.x][king.y] = null;
 				
@@ -190,7 +191,7 @@ public class Chess {
 			tempX = king.x -1;
 			if(tempX>-1){
 				ChessPiece tempKing = tempBoard[king.x][king.y];
-				if(tempBoard[tempX][tempY]==null){
+				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor()!=king.getColor()){
 					tempBoard[tempX][tempY] = tempKing;
 					tempBoard[king.x][king.y] = null;
 				
@@ -218,7 +219,7 @@ public class Chess {
 			tempY = king.y +1;
 			if(tempY<8 && tempX>-1){
 				ChessPiece tempKing = tempBoard[king.x][king.y];
-				if(tempBoard[tempX][tempY]==null){
+				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor()!=king.getColor()){
 					tempBoard[tempX][tempY] = tempKing;
 					tempBoard[king.x][king.y] = null;
 				
@@ -247,7 +248,7 @@ public class Chess {
 			tempY = king.y+1;
 			if(tempY<8){
 				ChessPiece tempKing = tempBoard[king.x][king.y];
-				if(tempBoard[tempX][tempY]==null){
+				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor()!=king.getColor()){
 					tempBoard[tempX][tempY] = tempKing;
 					tempBoard[king.x][king.y] = null;
 				
@@ -275,7 +276,7 @@ public class Chess {
 			tempY = king.y +1;
 			if(tempX<8 && tempY<8){
 				ChessPiece tempKing = board[king.x][king.y];
-				if(tempBoard[tempX][tempY]==null){
+				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor()!=king.getColor()){
 					tempBoard[tempX][tempY] = tempKing;
 					tempBoard[king.x][king.y] = null;
 			
@@ -302,7 +303,7 @@ public class Chess {
 			tempY = king.y;
 			if(tempX<8){
 				ChessPiece tempKing = board[king.x][king.y];
-				if(tempBoard[tempX][tempY]==null){
+				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor()!=king.getColor()){
 					tempBoard[tempX][tempY] = tempKing;
 					tempBoard[king.x][king.y] = null;
 				
