@@ -3,7 +3,7 @@ package chess;
 public abstract class ChessPiece {
 	
 	public String color;
-	
+	public static int checkCount = 0;
 	//set by the x and y axis i.e. e5
 	public String location;
 	

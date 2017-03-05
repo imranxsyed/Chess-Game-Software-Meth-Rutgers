@@ -18,7 +18,7 @@ package chess;
 
 
 public class Chess {
-
+		
 		public static void main(String[]args){
 			
 			
@@ -38,7 +38,9 @@ public class Chess {
 			printTable(board);
 			
 		}
-		
+		public static void CheckMate(){
+			
+		}
 		public static void printTable(ChessPiece[][] board){
 			
 			boolean emp = true;

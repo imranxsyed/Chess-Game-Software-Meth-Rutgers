@@ -39,6 +39,43 @@ public class King extends ChessPiece {
 	}
 	
 	public void check(ChessPiece[][] board){
+		int tempX = this.x;
+		int tempY = this.y;
+		
+		tempY--;
+		
+		if(tempY>-1){
+			ChessPiece tempPiece = board[tempX][tempY];
+			if(tempPiece.getType()=="King"){
+				System.out.println("Check");
+				return;
+			}
+		}
+		
+		tempX--;
+		if(tempX>-1){
+			ChessPiece tempPiece = board[tempX][tempY];
+			if(tempPiece.getType()=="King"){
+				System.out.println("Check");
+				return;
+			}
+		}
+		tempY = this.y+1;
+		if(tempY<8){
+			ChessPiece tempPiece = board[tempX][tempY];
+			if(tempPiece.getType()=="King"){
+				System.out.println("Check");
+				return;
+			}
+		}
+		tempX = this.x+1;
+		if(tempX<8){
+			ChessPiece tempPiece = board[tempX][tempY];
+			if(tempPiece.getType()=="King"){
+				System.out.println("Check");
+				return;
+			}
+		}
 		return;
 	}
 	
