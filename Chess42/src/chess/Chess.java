@@ -25,6 +25,9 @@ public class Chess {
 		static ChessPiece pieceToMove;
 		static int whitePiecesCount;
 		static int blackPiecesCount;
+		static int whiteCheckCount;
+		static int blackCheckCount;
+		
 		public static void main(String[]args){
 			
 			
@@ -52,14 +55,14 @@ public class Chess {
 				moveTo = scan.next();
 				if(whitesTurn){
 					if(validPiece(board, moveFrom, whiteKing)){
-						if(pieceToMove.movePiece(board, moveTo, whitePiecesCount)){
+						if(pieceToMove.movePiece(board, moveTo, whitePiecesCount,whiteCheckCount)){
 							CheckMate(blackKing, board);
 							whitesTurn = false;
 						}
 					}
 				}else{
 					if(validPiece(board, moveFrom, blackKing)){
-						if(pieceToMove.movePiece(board, moveTo, blackPiecesCount)){
+						if(pieceToMove.movePiece(board, moveTo, blackPiecesCount,blackCheckCount)){
 							CheckMate(whiteKing, board);
 							whitesTurn = true;
 						}
@@ -330,6 +333,16 @@ public class Chess {
 			}
 			
 			if(checkCount==8){
+				if(checkCount==0){
+					System.out.println("draw?");
+					Scanner scanner = new Scanner(System.in);
+					String answer = scanner.next();
+					if(answer.compareToIgnoreCase("draw")==0){
+						System.out.println("Game ends in draw");
+					}
+					scanner.close();
+					return;
+				}
 				if(king.getColor()=="white"){
 					System.out.println("Black wins");
 					whiteKing = null;

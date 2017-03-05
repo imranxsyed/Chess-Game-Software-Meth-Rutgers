@@ -35,7 +35,7 @@ public abstract class ChessPiece {
 	/*
 	 * to comes in the form of (xy) i.e. e5
 	 */
-	public boolean movePiece(ChessPiece[][] board, String to, int count){
+	public boolean movePiece(ChessPiece[][] board, String to, int piecesCount, int checkCount){
 		//column
 		if(to.length()!=2 ){
 			System.out.println("Error: invalid input, syntatic error");
@@ -69,16 +69,17 @@ public abstract class ChessPiece {
 			this.x = tx;
 			this.location = to;
 			if(board[tx][ty]!=null){
-				count--;
+				piecesCount--;
 				board[tx][ty]=null;
 			}
 			board[oldX][oldY]=null;
 			board[tx][ty]= this;
 			
 			if(this.check(board)){
+				checkCount++;
 				System.out.println("Check");
 			}
-			
+			checkCount--;
 			return true;
 		}
 		//checks if King is in check
