@@ -26,28 +26,16 @@ public class Chess {
 			printTable(board);
 			
 			//example of projessor using the 
-			ChessPiece temp = board[0][4];
-			/*if(temp.movePiece(board, "f7" )){
-				board[temp.x][temp.y] = temp;
-				board[0][4]=null;
-				tmp = board[temp.x][temp.y];
-				printTable(board);
-				int xt = temp.x;
-				int yt = temp.y;
-				if(tmp.movePiece(board, "g8")){
-					System.out.println("attempt");
-					board[tmp.x][tmp.y] = tmp;
-					board[xt][yt]=null;
-					printTable(board);
-				}
-			}
-			*/
+			ChessPiece temp = board[0][3];
 			
-			temp = board[0][7];
-			temp.movePiece(board, "g8");
+			
+			temp = board[0][3];
+			temp.movePiece(board, "d1");
 			printTable(board);
 			//updates the board
-						
+			temp = board[7][3];
+			temp.movePiece(board, "e1");
+			printTable(board);
 			
 		}
 		

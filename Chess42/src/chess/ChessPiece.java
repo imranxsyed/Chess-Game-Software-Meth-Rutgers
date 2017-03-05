@@ -57,6 +57,10 @@ public abstract class ChessPiece {
 		if(this.move(tempBoard, tx,ty)){
 			int oldX = this.x;
 			int oldY = this.y;
+			ChessPiece isKing = board[tx][ty];
+			if(isKing!=null && isKing.getType()=="King" &&isKing.getColor()!=this.getColor()){
+				System.out.println(this.getColor() + " is the Winner");
+			}
 			this.y = ty;
 			this.x = tx;
 			this.location = to;
