@@ -63,7 +63,7 @@ public class Queen extends ChessPiece {
 			}else{
 				//movement across rows
 				int temp = this.x;
-				
+				//move up
 				if(temp>toX){
 					temp--;
 					if(temp>-1){
@@ -79,7 +79,7 @@ public class Queen extends ChessPiece {
 				}
 				
 				if(temp!=toX){
-					System.out.println("these is a abustructive stucture in path, invalid move");
+					System.out.println("these is a abustructive stucture in path");
 					return false;
 				}
 				
@@ -96,7 +96,7 @@ public class Queen extends ChessPiece {
 			int tempY = this.y;
 			if(tempX>toX){
 				if(tempY>toY){
-					//moving down and left
+					//moving up and left
 					tempY--;
 					tempX--;
 					while(board[tempX][tempY]==null && tempY!=toY){
@@ -110,11 +110,11 @@ public class Queen extends ChessPiece {
 						tempX--;
 						tempY++;
 					}
-					//moving down and right
+					//moving up and right
 				}
 			}else{
 				if(tempY>toY){
-					//moving up and left
+					//moving down and left
 					tempY--;
 					tempX++;
 					while(board[tempX][tempY]==null && tempY!=toY){
@@ -122,7 +122,7 @@ public class Queen extends ChessPiece {
 						tempY--;
 					}
 				}else{
-					//moving up and right 
+					//moving down and right 
 					tempY++;
 					tempX++;
 					while(board[tempX][tempY]==null && tempY!=toY){
@@ -132,7 +132,7 @@ public class Queen extends ChessPiece {
 				}	
 			}
 			if(tempY!=toY){
-				System.out.println("these is a abustructive stucture in path, invalid move");
+				System.out.println("these is a abustructive stucture in path");
 				return false;
 			}
 			if(board[toX][toY]!=null && board[toX][toY].getColor()==this.getColor()){
