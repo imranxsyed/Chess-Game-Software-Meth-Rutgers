@@ -23,6 +23,8 @@ public class Chess {
 		static ChessPiece whiteKing;
 		static ChessPiece blackKing;
 		static ChessPiece pieceToMove;
+		static int whitePiecesCount;
+		static int blackPiecesCount;
 		public static void main(String[]args){
 			
 			
@@ -50,15 +52,17 @@ public class Chess {
 				moveTo = scan.next();
 				if(whitesTurn){
 					if(validPiece(board, moveFrom, whiteKing)){
-						pieceToMove.movePiece(board, moveTo);
-						CheckMate(blackKing, board);
-						whitesTurn = false;
+						if(pieceToMove.movePiece(board, moveTo, whitePiecesCount)){
+							CheckMate(blackKing, board);
+							whitesTurn = false;
+						}
 					}
 				}else{
 					if(validPiece(board, moveFrom, blackKing)){
-						pieceToMove.movePiece(board, moveTo);
-						CheckMate(whiteKing, board);
-						whitesTurn = true;
+						if(pieceToMove.movePiece(board, moveTo, blackPiecesCount)){
+							CheckMate(whiteKing, board);
+							whitesTurn = true;
+						}
 					}
 				}
 				if(blackKing ==null){

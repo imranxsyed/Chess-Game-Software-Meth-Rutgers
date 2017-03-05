@@ -149,7 +149,7 @@ public class Queen extends ChessPiece {
 		int tempY = this.y;
 		int tempX = this.x;
 		ChessPiece tempPiece;
-		//check (up, left)
+		//check (down, left)
 		tempY--;
 		tempX++;
 		while(tempY>-1 && tempX<8 &&board[tempX][tempY]==null){
@@ -163,7 +163,8 @@ public class Queen extends ChessPiece {
 			}
 		}
 		
-		//check up
+		//check down
+		tempY = this.y;
 		tempX = this.x+1;
 		while(tempX<8 && board[tempX][this.y]==null){
 			tempX++;
@@ -176,7 +177,7 @@ public class Queen extends ChessPiece {
 		}
 		
 		
-		//check (up, right)
+		//check (down, right)
 		tempX = this.x +1;
 		tempY = this.y +1;
 		while(tempY<8 && tempX<8 &&board[tempX][tempY]==null){
@@ -192,6 +193,7 @@ public class Queen extends ChessPiece {
 		
 		
 		//check (right)
+		tempX = this.x;
 		tempY = this.y+1;
 		while(tempY<8 &&board[this.x][tempY]==null){tempY++;}
 		if(tempY<8){
@@ -201,7 +203,7 @@ public class Queen extends ChessPiece {
 			}
 		}
 		
-		//check (down, right)
+		//check (up, right)
 		tempX = this.x -1;
 		tempY = this.y +1;
 		while(tempY<8 && tempX>-1 &&board[tempX][tempY]==null){
@@ -216,10 +218,11 @@ public class Queen extends ChessPiece {
 		}
 		
 		
-		//check down
+		//check up
+		tempY = this.y;
 		tempX = this.x-1;
 		while(tempX>-1 && board[tempX][this.y]==null){
-			tempX++;
+			tempX--;
 		}
 		if(tempX>-1){
 			tempPiece= board[tempX][this.y];
@@ -229,7 +232,7 @@ public class Queen extends ChessPiece {
 		}
 		
 		
-		//check (down, left)
+		//check (up, left)
 		tempX = this.x -1;
 		tempY = this.y -1;
 		while(tempY>-1 && tempX>-1 &&board[tempX][tempY]==null){
@@ -246,6 +249,7 @@ public class Queen extends ChessPiece {
 		
 		
 		//check left
+		tempX = this.x;
 		tempY = this.y-1;
 		while(tempY>-1 &&board[this.x][tempY]==null){tempY--;}
 		if(tempY>-1){

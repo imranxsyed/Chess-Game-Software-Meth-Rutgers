@@ -35,11 +35,11 @@ public abstract class ChessPiece {
 	/*
 	 * to comes in the form of (xy) i.e. e5
 	 */
-	public void movePiece(ChessPiece[][] board, String to){
+	public boolean movePiece(ChessPiece[][] board, String to, int count){
 		//column
-		if(to.length()>2){
+		if(to.length()!=2 ){
 			System.out.println("Error: invalid input, syntatic error");
-			return;
+			return false;
 		}
 		int ty = to.charAt(0)-97;
 		//row
@@ -52,7 +52,7 @@ public abstract class ChessPiece {
 		//checks for out of boundary entry
 		if(tx>7 ||tx< 0 || ty>7 || ty<0){
 			System.out.println("Error: Out of bound");
-			return;
+			return false;
 		}
 	
 		
@@ -68,6 +68,10 @@ public abstract class ChessPiece {
 			this.y = ty;
 			this.x = tx;
 			this.location = to;
+			if(board[tx][ty]!=null){
+				count--;
+				board[tx][ty]=null;
+			}
 			board[oldX][oldY]=null;
 			board[tx][ty]= this;
 			
@@ -75,11 +79,11 @@ public abstract class ChessPiece {
 				System.out.println("Check");
 			}
 			
-			return;
+			return true;
 		}
 		//checks if King is in check
 		System.out.println("Your move is not valid");
-		return;
+		return false;
 		
 	}
 	
