@@ -22,7 +22,7 @@ public abstract class ChessPiece {
 		return color;
 	}
 	public abstract boolean move(ChessPiece[][]board, int from, int to);
-	public abstract void check(ChessPiece[][]board);
+	public abstract boolean check(ChessPiece[][]board);
 	public void getLocation(){
 		System.out.print(location);
 	}
@@ -66,11 +66,15 @@ public abstract class ChessPiece {
 			this.location = to;
 			board[oldX][oldY]=null;
 			board[tx][ty]= this;
-			this.check(board);
+			
+			if(this.check(board)){
+				System.out.println("Check");
+			}
+			
 			return;
 		}
 		//checks if King is in check
-		
+		System.out.println("Your move is not valid");
 		return;
 		
 	}

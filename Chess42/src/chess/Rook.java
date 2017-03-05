@@ -99,7 +99,7 @@ public class Rook extends ChessPiece{
 		}
 	}
 	
-	public void check(ChessPiece[][] board){
+	public boolean check(ChessPiece[][] board){
 		int tempX = this.x-1;
 		int tempY = this.y-1;
 		
@@ -108,10 +108,7 @@ public class Rook extends ChessPiece{
 			tempX--;
 		}
 		if(tempX!=-1 && board[tempX][this.y].getType()=="King"){
-			if(board[tempX][this.y]!=null && this.getColor() != board[tempX][this.y].getColor()){
-				System.out.println("Check");
-				return;
-			}
+			if(board[tempX][this.y]!=null && this.getColor() != board[tempX][this.y].getColor()){ return true;}
 		}
 		
 		tempX = this.x+1;
@@ -120,10 +117,7 @@ public class Rook extends ChessPiece{
 			tempX++;
 		}
 		if(tempX!=8 && board[tempX][this.y].getType()=="King"){
-			if(board[tempX][this.y]!=null && this.getColor() != board[tempX][this.y].getColor()){
-				System.out.println("Check");
-				return;
-			}
+			if(board[tempX][this.y]!=null && this.getColor() != board[tempX][this.y].getColor()){ return true;}
 		}
 		//checks left 
 		while(tempY > -1 && board[this.x][tempY]==null){
@@ -131,10 +125,7 @@ public class Rook extends ChessPiece{
 		}
 		
 		if(tempY!=-1 && board[this.x][tempY].getType()=="King"){
-			if(this.getColor() != board[this.x][tempY].getColor()){
-				System.out.println("Check");
-				return;
-			}
+			if(this.getColor() != board[this.x][tempY].getColor()){return true;}
 		}
 		
 		tempY = this.y+1;
@@ -144,11 +135,8 @@ public class Rook extends ChessPiece{
 		}
 		
 		if(tempY!=8 && board[this.x][tempY].getType() == "King"){
-			if(this.getColor() != board[this.x][tempY].getColor()){
-				System.out.println("Check");
-				return;
-			}
+			if(this.getColor() != board[this.x][tempY].getColor()){ return true;}
 		}
-		return;
+		return false;
 	}
 }

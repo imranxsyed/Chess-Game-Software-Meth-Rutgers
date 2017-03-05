@@ -22,7 +22,7 @@ public class King extends ChessPiece {
 	
 		int newX = Math.abs(this.x - toX);
 		int newY = Math.abs(this.y - toY);
-		System.out.println(newY);
+		
 		if(newX>1 || newY>1){
 			return false;
 		}else if(this.y ==toY && this.x == toX){
@@ -38,45 +38,81 @@ public class King extends ChessPiece {
 		}
 	}
 	
-	public void check(ChessPiece[][] board){
+	public boolean check(ChessPiece[][] board){
+		
 		int tempX = this.x;
 		int tempY = this.y;
 		
-		tempY--;
 		
+		//checks left up 
+		tempX++;
+		tempY--;
+		if(tempY>-1 && tempX<8){
+			ChessPiece tempPiece = board[tempX][tempY];
+			if(tempPiece!=null && tempPiece.getType()=="King" && this.getColor()!=tempPiece.getColor()){ return true;}
+		}
+		
+		
+		//checks left
+		tempY = this.y -1;
+		tempX = this.x;
 		if(tempY>-1){
 			ChessPiece tempPiece = board[tempX][tempY];
-			if(tempPiece.getType()=="King"){
-				System.out.println("Check");
-				return;
-			}
+			if(tempPiece!=null && tempPiece.getType()=="King" && this.getColor()!=tempPiece.getColor()){ return true;}
 		}
 		
-		tempX--;
+		//checks left down
+		tempY = this.y -1;
+		tempX = this.x -1;
+		if(tempY>-1 && tempX>-1){
+			ChessPiece tempPiece = board[tempX][tempY];
+			if(tempPiece!=null && tempPiece.getType()=="King" && this.getColor()!=tempPiece.getColor()){ return true;}
+		}
+		
+		
+		
+		//checks down
+		tempY = this.y;
+		tempX = this.x -1;
 		if(tempX>-1){
 			ChessPiece tempPiece = board[tempX][tempY];
-			if(tempPiece.getType()=="King"){
-				System.out.println("Check");
-				return;
-			}
+			if(tempPiece!=null && tempPiece.getType()=="King" && this.getColor()!=tempPiece.getColor()){ return true;}
 		}
+		
+		
+		//checks down right
+		tempX = this.x -1;
+		tempY = this.y +1;
+		if(tempY<8 && tempX>-1){
+			ChessPiece tempPiece = board[tempX][tempY];
+			if(tempPiece!=null && tempPiece.getType()=="King" && this.getColor()!=tempPiece.getColor()){ return true;}
+		}
+		
+		//checks right
+		tempX = this.x;
 		tempY = this.y+1;
 		if(tempY<8){
 			ChessPiece tempPiece = board[tempX][tempY];
-			if(tempPiece.getType()=="King"){
-				System.out.println("Check");
-				return;
-			}
+			if(tempPiece!=null && tempPiece.getType()=="King" && this.getColor()!=tempPiece.getColor()){ return true;}
 		}
+		
+		
+		//checks up right up
+		tempX = this.x+1;
+		tempY = this.y +1;
+		if(tempX<8 && tempY<8){
+			ChessPiece tempPiece = board[tempX][tempY];
+			if(tempPiece!=null && tempPiece.getType()=="King" && this.getColor()!=tempPiece.getColor()){ return true;}
+		}
+		
+		//checks up
+		tempY = this.y;
 		tempX = this.x+1;
 		if(tempX<8){
 			ChessPiece tempPiece = board[tempX][tempY];
-			if(tempPiece.getType()=="King"){
-				System.out.println("Check");
-				return;
-			}
+			if(tempPiece!=null && tempPiece.getType()=="King" && this.getColor()!=tempPiece.getColor()){ return true;}
 		}
-		return;
+		return false;
 	}
 	
 }

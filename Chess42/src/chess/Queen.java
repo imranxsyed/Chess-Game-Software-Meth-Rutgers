@@ -145,7 +145,7 @@ public class Queen extends ChessPiece {
 		}
 	}
 
-	public void check(ChessPiece[][] board){
+	public boolean check(ChessPiece[][] board){
 		int tempY = this.y;
 		int tempX = this.x;
 		ChessPiece tempPiece;
@@ -159,8 +159,7 @@ public class Queen extends ChessPiece {
 		if(tempY>=0 && tempX<=7){
 			tempPiece= board[tempX][tempY];
 			if(tempPiece.getType()=="King"&&tempPiece.getColor()!=this.getColor()){
-				System.out.println("Check");
-				return;
+				return true;
 			}
 		}
 		
@@ -172,8 +171,7 @@ public class Queen extends ChessPiece {
 		if(tempX<=7){
 			tempPiece= board[tempX][this.y];
 			if(tempPiece.getType()=="King"&&tempPiece.getColor()!=this.getColor()){
-				System.out.println("Check");
-				return;
+				return true;
 			}
 		}
 		
@@ -188,8 +186,7 @@ public class Queen extends ChessPiece {
 		if(tempY<8 && tempX<8){
 			tempPiece= board[tempX][tempY];
 			if(tempPiece.getType()=="King"&&tempPiece.getColor()!=this.getColor()){
-				System.out.println("Check");
-				return;
+				return true;
 			}
 		}
 		
@@ -200,8 +197,7 @@ public class Queen extends ChessPiece {
 		if(tempY<8){
 			tempPiece= board[this.x][tempY];
 			if(tempPiece.getType()=="King"&&tempPiece.getColor()!=this.getColor()){
-				System.out.println("Check");
-				return;
+				return true;
 			}
 		}
 		
@@ -215,8 +211,7 @@ public class Queen extends ChessPiece {
 		if(tempY<8 && tempX>-1){
 			tempPiece= board[tempX][tempY];
 			if(tempPiece.getType()=="King"&&tempPiece.getColor()!=this.getColor()){
-				System.out.println("Check");
-				return;
+				return true;
 			}
 		}
 		
@@ -229,8 +224,7 @@ public class Queen extends ChessPiece {
 		if(tempX>-1){
 			tempPiece= board[tempX][this.y];
 			if(tempPiece.getType()=="King"&&tempPiece.getColor()!=this.getColor()){
-				System.out.println("Check");
-				return;
+				return true;
 			}
 		}
 		
@@ -245,8 +239,7 @@ public class Queen extends ChessPiece {
 		if(tempY>-1 && tempX>-1){
 		tempPiece= board[tempX][tempY];
 			if(tempPiece.getType()=="King"&&tempPiece.getColor()!=this.getColor()){
-				System.out.println("Check");
-				return;
+				return true;
 			}
 		}
 		
@@ -258,12 +251,11 @@ public class Queen extends ChessPiece {
 		if(tempY>-1){
 			tempPiece= board[this.x][tempY];
 			if(tempPiece.getType()=="King"&&tempPiece.getColor()!=this.getColor()){
-				System.out.println("Check");
-				return;
+				return true;
 			}
 		}
 		
-		return;
+		return false;
 	}
 	
 }
