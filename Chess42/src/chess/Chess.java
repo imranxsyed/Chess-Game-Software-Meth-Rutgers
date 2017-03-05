@@ -1,4 +1,5 @@
 package chess;
+import java.util.Scanner;
 
 /**
  * (y, x)
@@ -21,95 +22,162 @@ public class Chess {
 		
 		static ChessPiece whiteKing;
 		static ChessPiece blackKing;
-	
+		static ChessPiece pieceToMove;
 		public static void main(String[]args){
 			
 			
 			ChessPiece[][] board = createTable(); 
-			printTable(board);
+			
 			
 			//example of projessor using the 
-			ChessPiece temp = board[0][3];
+			boolean end = false;
+			boolean whitesTurn = true;
+			Scanner scan;
+			String moveFrom;
+			String moveTo;
 			
-			
-			temp = board[7][4];
-			temp.movePiece(board, "f1");
-			printTable(board);
-			CheckMate(whiteKing, board);
+			while(end!=true){
+				printTable(board);
+				System.out.println();
+				if(whitesTurn){
+					System.out.print("Whites move: ");
+				}else{
+					System.out.print("Blacks move: ");
+				}
+				
+				scan = new Scanner(System.in);
+				moveFrom = scan.next();
+				moveTo = scan.next();
+				if(whitesTurn){
+					if(validPiece(board, moveFrom, whiteKing)){
+						pieceToMove.movePiece(board, moveTo);
+						CheckMate(blackKing, board);
+						whitesTurn = false;
+					}
+				}else{
+					if(validPiece(board, moveFrom, blackKing)){
+						pieceToMove.movePiece(board, moveTo);
+						CheckMate(whiteKing, board);
+						whitesTurn = true;
+					}
+				}
+				if(blackKing ==null){
+					System.out.println("White Wins");
+					end = true;
+				}
+				if(whiteKing == null){
+					System.out.println("Black player Wins");
+					end = true;
+				}
+			}
 			
 			//updates the board
 			
 			
 		}
+		
+		/**
+		 * This method exhausts all possible options that next player can do to their king 
+		 * in order to avoid checkmate
+		 * 
+		 * king has at most 8 possible options
+		 * @param king opposite king 
+		 * @param board
+		 */
 		public static void CheckMate(ChessPiece king, ChessPiece[][] board){
+			
 			
 			int tempX = king.x;
 			int tempY = king.y;
 			int checkCount = 0;
-			ChessPiece tempPiece;
-			ChessPiece[][] tempBoard = board;
+			
+			ChessPiece tempPiece = null;
+			ChessPiece[][] tempBoard = new ChessPiece[8][8];
+			
+			for(int i = 0; i<board.length; i++){
+				for(int j =0; j<board.length; j++){
+					tempBoard[i][j]= board[i][j];
+				}
+			}
+		
+			//down and to the left
 			tempX++;
 			tempY--;
 			if(tempY>-1 && tempX<8){
-				ChessPiece tempKing = board[tempX][tempY];
-				tempBoard[tempX][tempY] = tempKing;
-				tempBoard[king.x][king.y] = null;
-				for(int i=0; i<board.length; i++){
-					for(int j=0; j<board.length; j++){
-						tempPiece = board[i][j];
-						if(tempPiece!=null){
-							if(tempPiece.check(tempBoard)){
-								checkCount++;
-								break;
+				ChessPiece tempKing = tempBoard[king.x][king.y];
+				if(tempBoard[tempX][tempY]==null){
+					tempBoard[tempX][tempY] = tempKing;
+					tempBoard[king.x][king.y] = null;
+				
+					for(int i=0; i<board.length; i++){
+						for(int j=0; j<board.length; j++){
+							tempPiece = tempBoard[i][j];
+							if(tempPiece!=null){
+								if(tempPiece.check(tempBoard)){
+									checkCount++;
+									break;
+								}
 							}
 						}
 					}
+					tempBoard[tempX][tempY]=null;
+					tempBoard[king.x][king.y]= tempKing;
 				}
-				
 			}else{
 				checkCount++;
 			}
-			
 			
 			//checks left
 			tempX = king.x;
 			tempY = king.y -1;
+			
 			if(tempY>-1){
-				ChessPiece tempKing = board[tempX][tempY];
-				tempBoard[tempX][tempY] = tempKing;
-				tempBoard[king.x][king.y] = null;
-				for(int i=0; i<board.length; i++){
-					for(int j=0; j<board.length; j++){
-						tempPiece = board[i][j];
-						if(tempPiece!=null){
-							if(tempPiece.check(tempBoard)){
-								checkCount++;
-								break;
+				ChessPiece tempKing = tempBoard[king.x][king.y];
+				if(tempBoard[tempX][tempY]==null){
+					tempBoard[tempX][tempY] = tempKing;
+					tempBoard[king.x][king.y] = null;
+			
+					for(int i=0; i<board.length; i++){
+						for(int j=0; j<board.length; j++){
+							tempPiece = tempBoard[i][j];
+							if(tempPiece!=null){
+								if(tempPiece.check(tempBoard)){
+									checkCount++;
+									break;
+								}
 							}
 						}
 					}
+					tempBoard[tempX][tempY]=null;
+					tempBoard[king.x][king.y]= tempKing;
 				}
 			}else{
 				checkCount++;
 			}
 			
-			//checks left down
+			
+			//checks left up
 			tempY = king.y -1;
 			tempX = king.x -1;
 			if(tempY>-1 && tempX>-1){
-				ChessPiece tempKing = board[tempX][tempY];
-				tempBoard[tempX][tempY] = tempKing;
-				tempBoard[king.x][king.y] = null;
-				for(int i=0; i<board.length; i++){
-					for(int j=0; j<board.length; j++){
-						tempPiece = board[i][j];
-						if(tempPiece!=null){
-							if(tempPiece.check(tempBoard)){
-								checkCount++;
-								break;
+				ChessPiece tempKing = tempBoard[king.x][king.y];
+				if(tempBoard[tempX][tempY]==null){
+					tempBoard[tempX][tempY] = tempKing;
+					tempBoard[king.x][king.y] = null;
+				
+					for(int i=0; i<board.length; i++){
+						for(int j=0; j<board.length; j++){
+							tempPiece = tempBoard[i][j];
+							if(tempPiece!=null){
+								if(tempPiece.check(tempBoard)){
+									checkCount++;
+									break;
+								}
 							}
 						}
 					}
+					tempBoard[tempX][tempY]=null;
+					tempBoard[king.x][king.y]= tempKing;
 				}
 			}else{
 				checkCount++;
@@ -117,110 +185,140 @@ public class Chess {
 			
 			
 			
-			//checks down
+			//checks up
+			tempY = king.y;
 			tempX = king.x -1;
 			if(tempX>-1){
-				ChessPiece tempKing = board[tempX][tempY];
-				tempBoard[tempX][tempY] = tempKing;
-				tempBoard[king.x][king.y] = null;
-				for(int i=0; i<board.length; i++){
-					for(int j=0; j<board.length; j++){
-						tempPiece = board[i][j];
-						if(tempPiece!=null){
-							if(tempPiece.check(tempBoard)){
-								checkCount++;
-								break;
+				ChessPiece tempKing = tempBoard[king.x][king.y];
+				if(tempBoard[tempX][tempY]==null){
+					tempBoard[tempX][tempY] = tempKing;
+					tempBoard[king.x][king.y] = null;
+				
+					for(int i=0; i<board.length; i++){
+						for(int j=0; j<board.length; j++){
+							tempPiece = tempBoard[i][j];
+							if(tempPiece!=null){
+								if(tempPiece.check(tempBoard)){
+									checkCount++;
+									break;
+								}
 							}
 						}
 					}
+					tempBoard[tempX][tempY]=null;
+					tempBoard[king.x][king.y]= tempKing;
 				}
 			}else{
 				checkCount++;
 			}
 			
 			
-			//checks down right
+			//checks up right
 			tempX = king.x -1;
 			tempY = king.y +1;
 			if(tempY<8 && tempX>-1){
-				ChessPiece tempKing = board[tempX][tempY];
-				tempBoard[tempX][tempY] = tempKing;
-				tempBoard[king.x][king.y] = null;
-				for(int i=0; i<board.length; i++){
-					for(int j=0; j<board.length; j++){
-						tempPiece = board[i][j];
-						if(tempPiece!=null){
-							if(tempPiece.check(tempBoard)){
-								checkCount++;
-								break;
+				ChessPiece tempKing = tempBoard[king.x][king.y];
+				if(tempBoard[tempX][tempY]==null){
+					tempBoard[tempX][tempY] = tempKing;
+					tempBoard[king.x][king.y] = null;
+				
+					for(int i=0; i<board.length; i++){
+						for(int j=0; j<board.length; j++){
+							tempPiece = tempBoard[i][j];
+							if(tempPiece!=null){
+								if(tempPiece.check(tempBoard)){
+									checkCount++;
+									break;
+								}
 							}
 						}
 					}
+					tempBoard[tempX][tempY]=null;
+					tempBoard[king.x][king.y]= tempKing;
 				}
 			}else{
 				checkCount++;
 			}
+			
+			
 			
 			//checks right
+			tempX = king.x;
 			tempY = king.y+1;
 			if(tempY<8){
-				ChessPiece tempKing = board[tempX][tempY];
-				tempBoard[tempX][tempY] = tempKing;
-				tempBoard[king.x][king.y] = null;
-				for(int i=0; i<board.length; i++){
-					for(int j=0; j<board.length; j++){
-						tempPiece = board[i][j];
-						if(tempPiece!=null){
-							if(tempPiece.check(tempBoard)){
-								checkCount++;
-								break;
+				ChessPiece tempKing = tempBoard[king.x][king.y];
+				if(tempBoard[tempX][tempY]==null){
+					tempBoard[tempX][tempY] = tempKing;
+					tempBoard[king.x][king.y] = null;
+				
+					for(int i=0; i<board.length; i++){
+						for(int j=0; j<board.length; j++){
+							tempPiece = tempBoard[i][j];
+							if(tempPiece!=null){
+								if(tempPiece.check(tempBoard)){
+									checkCount++;
+									break;
+								}
 							}
 						}
 					}
+					tempBoard[tempX][tempY]=null;
+					tempBoard[king.x][king.y]= tempKing;
 				}
 			}else{
 				checkCount++;
 			}
 			
-			
-			//checks up right up
+		
+			//checks down and to the right
 			tempX = king.x+1;
 			tempY = king.y +1;
 			if(tempX<8 && tempY<8){
-				ChessPiece tempKing = board[tempX][tempY];
-				tempBoard[tempX][tempY] = tempKing;
-				tempBoard[king.x][king.y] = null;
-				for(int i=0; i<board.length; i++){
-					for(int j=0; j<board.length; j++){
-						tempPiece = board[i][j];
-						if(tempPiece!=null){
-							if(tempPiece.check(tempBoard)){
-								checkCount++;
-								break;
+				ChessPiece tempKing = board[king.x][king.y];
+				if(tempBoard[tempX][tempY]==null){
+					tempBoard[tempX][tempY] = tempKing;
+					tempBoard[king.x][king.y] = null;
+			
+					for(int i=0; i<board.length; i++){
+						for(int j=0; j<board.length; j++){
+							tempPiece = tempBoard[i][j];
+							if(tempPiece!=null){
+								if(tempPiece.check(tempBoard)){
+									checkCount++;
+									break;
+								}
 							}
 						}
 					}
+					tempBoard[tempX][tempY]=null;
+					tempBoard[king.x][king.y]= tempKing;
 				}
 			}else{
 				checkCount++;
 			}
 			
-			//checks up
+			//checks down
 			tempX = king.x+1;
+			tempY = king.y;
 			if(tempX<8){
-				ChessPiece tempKing = board[tempX][tempY];
-				tempBoard[tempX][tempY] = tempKing;
-				tempBoard[king.x][king.y] = null;
-				for(int i=0; i<board.length; i++){
-					for(int j=0; j<board.length; j++){
-						tempPiece = board[i][j];
-						if(tempPiece!=null){
-							if(tempPiece.check(tempBoard)){
-								checkCount++;
-								break;
+				ChessPiece tempKing = board[king.x][king.y];
+				if(tempBoard[tempX][tempY]==null){
+					tempBoard[tempX][tempY] = tempKing;
+					tempBoard[king.x][king.y] = null;
+				
+					for(int i=0; i<board.length; i++){
+						for(int j=0; j<board.length; j++){
+							tempPiece = tempBoard[i][j];
+							if(tempPiece!=null){
+								if(tempPiece.check(tempBoard)){
+									checkCount++;
+									break;
+								}
 							}
 						}
 					}
+					tempBoard[tempX][tempY]=null;
+					tempBoard[king.x][king.y]= tempKing;
 				}
 			}else{
 				checkCount++;
@@ -229,8 +327,10 @@ public class Chess {
 			if(checkCount==8){
 				if(king.getColor()=="white"){
 					System.out.println("Black wins");
+					whiteKing = null;
 				}else{
 					System.out.println("White wins");
+					blackKing = null;
 				}
 			}
 			return;
@@ -320,5 +420,36 @@ public class Chess {
 			
 			return board;
 		}
-		
+		private static boolean validPiece(ChessPiece[][] board, String moveFrom, ChessPiece king){
+			//column
+			if(moveFrom.length()>2){
+				System.out.println("Error: invalid input");
+				return false;
+			}
+			int ty = moveFrom.charAt(0)-97;
+			//row
+			int tx = moveFrom.charAt(1)-49;
+			
+			//board is upside down to how out board is made so it converts the value given by user
+			//to a usable value for our array
+			tx =  (tx-7)*(-1);
+			
+			//checks for out of boundary entry
+			if(tx>7 ||tx< 0 || ty>7 || ty<0){
+				System.out.println("Error: Invalid input");
+				return false;
+			}
+			
+			if(board[tx][ty]==null){
+				System.out.println("Error: there is no piece there");
+				return false;
+			}
+			
+			if(board[tx][ty].getColor()!= king.getColor()){
+				System.out.println("Error: this is not your piece");
+				return false;
+			}
+			pieceToMove = board[tx][ty];
+			return true;
+		}
 }

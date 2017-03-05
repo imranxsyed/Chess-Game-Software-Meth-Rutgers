@@ -37,6 +37,10 @@ public abstract class ChessPiece {
 	 */
 	public void movePiece(ChessPiece[][] board, String to){
 		//column
+		if(to.length()>2){
+			System.out.println("Error: invalid input, syntatic error");
+			return;
+		}
 		int ty = to.charAt(0)-97;
 		//row
 		int tx = to.charAt(1)-49;
@@ -57,10 +61,10 @@ public abstract class ChessPiece {
 		if(this.move(tempBoard, tx,ty)){
 			int oldX = this.x;
 			int oldY = this.y;
-			ChessPiece isKing = board[tx][ty];
+			/*ChessPiece isKing = board[tx][ty];
 			if(isKing!=null && isKing.getType()=="King" &&isKing.getColor()!=this.getColor()){
 				System.out.println(this.getColor() + " is the Winner");
-			}
+			}*/
 			this.y = ty;
 			this.x = tx;
 			this.location = to;
