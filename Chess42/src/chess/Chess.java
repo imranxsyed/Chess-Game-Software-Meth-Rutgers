@@ -29,11 +29,12 @@ public class Chess {
 		static int blackPiecesCount;
 		static int whiteCheckCount;
 		static int blackCheckCount;
+		static ChessPiece[][] board;
 		
 		public static void main(String[]args){
 			
 			
-			ChessPiece[][] board = createTable(); 
+			board = createTable(); 
 			
 			
 			//example of projessor using the 
@@ -47,8 +48,10 @@ public class Chess {
 				printTable(board);
 				System.out.println();
 				if(whitesTurn){
+					checkElPessant("white");
 					System.out.print("Whites move: ");
 				}else{
+					checkElPessant("black");
 					System.out.print("Blacks move: ");
 				}
 				
@@ -443,6 +446,7 @@ public class Chess {
 			return board;
 		}
 		private static boolean validPiece(ChessPiece[][] board, String moveFrom, ChessPiece king){
+
 			//column
 			if(moveFrom.length()>2){
 				System.out.println("Error: invalid input");
@@ -473,5 +477,29 @@ public class Chess {
 			}
 			pieceToMove = board[tx][ty];
 			return true;
+		}
+		
+		/**
+		 * 
+		 * this method checks el_pessant values and sets equals to false depending whose turn it is (parameters)
+		 * @param color
+		 */
+		private static void checkElPessant(String color){
+			
+			for (int i = 0 ; i< board[0].length; i ++){
+				
+				for (int j = 0 ; j < board[i].length; j++){
+					
+					
+					if (board[i][j]!=null 
+						&& board[i][j].type.equalsIgnoreCase("Pawn")
+						&& board[i][j].color.equalsIgnoreCase(color)){
+						
+						board[i][j].el_pessant = false;
+					}
+				}
+			}
+			
+			
 		}
 }

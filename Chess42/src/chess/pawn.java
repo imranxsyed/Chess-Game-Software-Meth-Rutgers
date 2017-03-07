@@ -80,7 +80,7 @@ public class pawn extends ChessPiece {
 									board[this.x][y] = null; // el_passant removing that manually since the movePiece method will not do it for you
 								}
 			
-				} else if (!output){ //if el_pessant is not true
+				} if(!output){ //if el_pessant is not true
 					
 					output = (board[x][y] !=null ) && (!(board[x][y].color.equalsIgnoreCase(this.color)));
 				}
