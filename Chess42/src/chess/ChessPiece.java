@@ -2,6 +2,9 @@ package chess;
 
 public abstract class ChessPiece {
 	
+	boolean el_pessant = false;
+	 boolean promotion =false;
+	
 	public String color;
 	public static int checkCount = 0;
 	//set by the x and y axis i.e. e5
@@ -21,8 +24,12 @@ public abstract class ChessPiece {
 	public String getColor(){
 		return color;
 	}
+	
+	//should't int from and int to be cordiantes.. ?
 	public abstract boolean move(ChessPiece[][]board, int from, int to);
 	public abstract boolean check(ChessPiece[][]board);
+	
+	
 	public void getLocation(){
 		System.out.print(location);
 	}
@@ -61,10 +68,7 @@ public abstract class ChessPiece {
 		if(this.move(tempBoard, tx,ty)){
 			int oldX = this.x;
 			int oldY = this.y;
-			/*ChessPiece isKing = board[tx][ty];
-			if(isKing!=null && isKing.getType()=="King" &&isKing.getColor()!=this.getColor()){
-				System.out.println(this.getColor() + " is the Winner");
-			}*/
+			
 			this.y = ty;
 			this.x = tx;
 			this.location = to;

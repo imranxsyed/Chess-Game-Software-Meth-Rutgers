@@ -20,6 +20,8 @@ import java.util.Scanner;
 
 public class Chess {
 		
+	
+	
 		static ChessPiece whiteKing;
 		static ChessPiece blackKing;
 		static ChessPiece pieceToMove;
@@ -400,14 +402,14 @@ public class Chess {
 			for(int i= 0; i< board.length ;i++ ){
 				
 				for(int j= 0; j< board[i].length; j++){
-					/*if(i==1){
+					if(i==1){
 						//fill black pawns 
-						board[i][j]= new Pawn("black",1,j);
+						board[i][j]= new pawn("black",1,j);
 					}else if(i==6){
 						//fills white pawns
-						board[i][j] = new Pawn("white",6,j);
+						board[i][j] = new pawn("white",6,j);
 					}else{
-					*/
+					
 					
 					board[i][j]= null;
 				}
@@ -436,6 +438,8 @@ public class Chess {
 			
 			
 			
+			
+		}
 			return board;
 		}
 		private static boolean validPiece(ChessPiece[][] board, String moveFrom, ChessPiece king){
