@@ -1,0 +1,84 @@
+Commented Code
+
+pass down y<7
+
+/*if (board[downJump][this.y+1] != null 
+						&& board[downJump][this.y+1].type.equalsIgnoreCase("King")
+						&& !(board[downJump][this.y+1].color.equalsIgnoreCase(this.color))){
+						
+						return true;
+					}*/
+					
+					
+pass down y>0 
+
+/*if (board[downJump][this.y-1] != null 
+						&& board[downJump][this.y-1].type.equalsIgnoreCase("King")
+						&& !(board[downJump][this.y-1].color.equalsIgnoreCase(this.color))){
+						
+						return true;
+					}*/
+					
+					
+					
+pass up y < 7
+
+/*if (board[upJump][this.y+1] != null 
+						&& board[upJump][this.y+1].type.equalsIgnoreCase("King")
+						&& !(board[upJump][this.y+1].color.equalsIgnoreCase(this.color))){
+						
+						return true;
+					}*/
+				
+				
+pass up y>0
+
+/*	if (board[upJump][this.y-1] != null 
+						&& board[upJump][this.y-1].type.equalsIgnoreCase("King")
+						&& !(board[upJump][this.y-1].color.equalsIgnoreCase(this.color))){
+						
+						return true;
+					}*/
+					
+					
+					
+					
+right side x >0 
+
+/*if (board[x-1][rightJump]!=null
+					&& board[x-1][rightJump].type.equalsIgnoreCase("King")
+					&& (!board[x-1][rightJump].color.equalsIgnoreCase(this.color))){
+					
+					return true;
+				}*/
+				
+right side x<7
+
+
+/*if (board[x+1][rightJump]!=null
+						&& board[x+1][rightJump].type.equalsIgnoreCase("King")
+						&& (!board[x+1][rightJump].color.equalsIgnoreCase(this.color))){
+						
+						return true;
+					}	*/
+					
+					
+					
+left side x > 0
+
+/*if (board[x-1][leftJump]!=null
+					&& board[x-1][leftJump].type.equalsIgnoreCase("King")
+					&& (!board[x-1][leftJump].color.equalsIgnoreCase(this.color))){
+					
+					return true;
+				}*/
+				
+				
+left side x<7
+
+/*if (board[x+1][leftJump]!=null
+						&& board[x+1][leftJump].type.equalsIgnoreCase("King")
+						&& (!board[x+1][leftJump].color.equalsIgnoreCase(this.color))){
+						
+						return true;
+					}	*/

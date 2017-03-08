@@ -30,12 +30,15 @@ public class Chess {
 		static int whiteCheckCount;
 		static int blackCheckCount;
 		static ChessPiece[][] board;
+		//static priorityQueue blackDeletedItems, whiteDeletedItems;
 		
 		public static void main(String[]args){
 			
 			
 			board = createTable(); 
 			
+			//blackDeletedItems = new priorityQueue();
+			//whiteDeletedItems = new priorityQueue();
 			
 			//example of projessor using the 
 			boolean end = false;
@@ -419,23 +422,23 @@ public class Chess {
 			}
 			
 			board[0][0] = new Rook("black", 0,0);
-			//board[0][1] = new Knight("black",0,1);
+			board[0][1] = new Knight("black",0,1);
 			//board[0][2] = new Bishop("black",0,2);
 			board[0][3] = new Queen("black", 0,3);
 			board[0][4] = new King("black",0,4);
 			blackKing = board[0][4];
 			//board[0][5] = new Bishop("black",0,5);
-			//board[0][6] = new Knight("black",0,6);
+			board[0][6] = new Knight("black",0,6);
 			board[0][7] = new Rook("black",0,7);
 			
 			board[7][0] = new Rook("white",7,0);
-			//board[7][1] = new Knight("white",7,1);
+			board[7][1] = new Knight("white",7,1);
 			//board[7][2] = new Bishop("white",7,2);
 			board[7][3] = new Queen("white",7,3);
 			board[7][4] = new King("white",7,4);
 			whiteKing = board[7][4];
 			//board[7][5] = new Bishop("white",7,5);
-			//board[7][6] = new Knight("white",7,6);
+			board[7][6] = new Knight("white",7,6);
 			board[7][7] = new Rook("white",7,7);
 			
 			

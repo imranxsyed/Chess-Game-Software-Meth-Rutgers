@@ -2,8 +2,7 @@ package chess;
 
 public class pawn extends ChessPiece {
 	
-	String[] column = {"a","b","c","d","e","f","g","h"};
-	String[] rows = {"1","2","3","4","5","6","7","8"};
+	
 	 
 	
 	public pawn(String color, int x, int y){
@@ -18,7 +17,7 @@ public class pawn extends ChessPiece {
 	
 	
 	
-	@Override
+
 	public boolean move(ChessPiece[][] board, int x, int y) {
 		
 		boolean oneStepAhead,twoStepAhead, diagonalStep;
@@ -130,8 +129,8 @@ public class pawn extends ChessPiece {
 			
 			if (this.color.equalsIgnoreCase("White") && xCordinate >0){ // checking for white side
 			
-				if (board[xCordinate -1][yCordinate +1] != null && board[xCordinate -1][yCordinate +1].type.equalsIgnoreCase("King") &&
-					(!board[xCordinate -1][yCordinate +1].color.equalsIgnoreCase(this.color))){
+				if ((board[xCordinate -1][yCordinate +1] != null )&& (board[xCordinate -1][yCordinate +1].type.equalsIgnoreCase("King")) &&
+					!(board[xCordinate -1][yCordinate +1].color.equalsIgnoreCase(this.color))){
 				
 					return true;
 			}
@@ -157,7 +156,7 @@ public class pawn extends ChessPiece {
 			  */
 
 			
-			if (this.color.equalsIgnoreCase("White") && xCordinate <0){
+			if (this.color.equalsIgnoreCase("White") && xCordinate >0){
 							
 				
 				if (board[xCordinate -1][yCordinate -1] != null && board[xCordinate -1][yCordinate -1].type.equalsIgnoreCase("King") &&

@@ -2,6 +2,9 @@ package chess;
 
 public abstract class ChessPiece {
 	
+	
+	String[] column = {"a","b","c","d","e","f","g","h"};
+	String[] rows = {"1","2","3","4","5","6","7","8"};
 	boolean el_pessant = false;
 	 boolean promotion =false;
 	
