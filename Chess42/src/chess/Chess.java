@@ -1,4 +1,6 @@
 package chess;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -25,20 +27,21 @@ public class Chess {
 		static ChessPiece whiteKing;
 		static ChessPiece blackKing;
 		static ChessPiece pieceToMove;
-		static int whitePiecesCount;
-		static int blackPiecesCount;
-		static int whiteCheckCount;
-		static int blackCheckCount;
 		static ChessPiece[][] board;
+		static boolean end;
+		static int whitePiecesCount = 16;
+		static int blackPiecesCount = 16;
+		static ChessPiece[] whitePieces = new ChessPiece[16];
+		static ChessPiece[] blackPiece = new ChessPiece[16];
+		static int whiteInCheck  =0;
+		static int blackInCheck  =0;
 		
 		public static void main(String[]args){
 			
 			
+			
 			board = createTable(); 
-			
-			
-			//example of projessor using the 
-			boolean end = false;
+			end = false;
 			boolean whitesTurn = true;
 			Scanner scan;
 			String moveFrom;
@@ -60,24 +63,38 @@ public class Chess {
 				moveTo = scan.next();
 				if(whitesTurn){
 					if(validPiece(board, moveFrom, whiteKing)){
-						if(pieceToMove.movePiece(board, moveTo, whitePiecesCount,whiteCheckCount)){
-							CheckMate(blackKing, board);
+						if(pieceToMove.movePiece(board, moveTo)){
+							pieceCount(blackPiece);
+							if(pieceToMove.check(board)){
+								blackInCheck = 1;
+								System.out.println("check");
+							}else{
+								blackInCheck = 0;
+							}
+							CheckMate(blackKing, board, blackInCheck);
 							whitesTurn = false;
 						}
 					}
 				}else{
 					if(validPiece(board, moveFrom, blackKing)){
-						if(pieceToMove.movePiece(board, moveTo, blackPiecesCount,blackCheckCount)){
-							CheckMate(whiteKing, board);
+						if(pieceToMove.movePiece(board, moveTo)){
+							pieceCount(whitePieces);
+							if(pieceToMove.check(board)){
+								whiteInCheck = 1;
+								System.out.println("check");
+							}else{
+								whiteInCheck = 0;
+							}
+							CheckMate(whiteKing, board, whiteInCheck);
 							whitesTurn = true;
 						}
 					}
 				}
-				if(blackKing ==null){
+				if(blackKing.location =="null"){
 					System.out.println("White Wins");
 					end = true;
 				}
-				if(whiteKing == null){
+				if(whiteKing.location == "null"){
 					System.out.println("Black player Wins");
 					end = true;
 				}
@@ -97,12 +114,21 @@ public class Chess {
 		 * @param king opposite king 
 		 * @param board
 		 */
-		public static void CheckMate(ChessPiece king, ChessPiece[][] board){
+		public static void CheckMate(ChessPiece king, ChessPiece[][] board, int inCheck){
 			
 			
 			int tempX = king.x;
 			int tempY = king.y;
 			int checkCount = 0;
+			int availableSpace = 8;
+			
+			ChessPiece oppKing;
+			if(king.getColor().compareTo("white")==0){
+				oppKing = blackKing;
+			}else{
+				oppKing = whiteKing;
+			}
+			
 			
 			ChessPiece tempPiece = null;
 			ChessPiece[][] tempBoard = new ChessPiece[8][8];
@@ -118,83 +144,103 @@ public class Chess {
 			tempY--;
 			if(tempY>-1 && tempX<8){
 				ChessPiece tempKing = tempBoard[king.x][king.y];
-				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor()!=king.getColor()){
+				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor().compareTo(king.getColor())!=0){
 					tempBoard[tempX][tempY] = tempKing;
 					tempBoard[king.x][king.y] = null;
-				
-					for(int i=0; i<board.length; i++){
+					tempBoard[oppKing.x][oppKing.y] = null;
+					boolean stop = false;
+					
+					for(int i=0; i<board.length &&stop!=true; i++){
 						for(int j=0; j<board.length; j++){
 							tempPiece = tempBoard[i][j];
 							if(tempPiece!=null){
 								if(tempPiece.check(tempBoard)){
 									checkCount++;
+									stop = true;
 									break;
 								}
 							}
 						}
 					}
-					tempBoard[tempX][tempY]=null;
+					tempBoard[oppKing.x][oppKing.y] = oppKing;
+					tempBoard[tempX][tempY]=board[tempX][tempY];
 					tempBoard[king.x][king.y]= tempKing;
+				}else{
+					availableSpace--;
 				}
 			}else{
-				checkCount++;
+				availableSpace--;
 			}
-			
+
 			//checks left
 			tempX = king.x;
 			tempY = king.y -1;
 			
 			if(tempY>-1){
 				ChessPiece tempKing = tempBoard[king.x][king.y];
-				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor()!=king.getColor()){
+				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor().compareTo(king.getColor())!=0){
 					tempBoard[tempX][tempY] = tempKing;
 					tempBoard[king.x][king.y] = null;
-			
-					for(int i=0; i<board.length; i++){
+					tempBoard[oppKing.x][oppKing.y] = null;
+					boolean stop = false;
+					
+					for(int i=0; i<board.length && stop!=true; i++){
 						for(int j=0; j<board.length; j++){
 							tempPiece = tempBoard[i][j];
 							if(tempPiece!=null){
 								if(tempPiece.check(tempBoard)){
 									checkCount++;
+									stop = true;
 									break;
 								}
 							}
 						}
 					}
-					tempBoard[tempX][tempY]=null;
+					tempBoard[oppKing.x][oppKing.y] = oppKing;
+					tempBoard[tempX][tempY]=board[tempX][tempY];
 					tempBoard[king.x][king.y]= tempKing;
+				}else{
+					availableSpace--;
 				}
 			}else{
-				checkCount++;
+				availableSpace--;
 			}
 			
-			
+
+
 			//checks left up
 			tempY = king.y -1;
 			tempX = king.x -1;
 			if(tempY>-1 && tempX>-1){
 				ChessPiece tempKing = tempBoard[king.x][king.y];
-				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor()!=king.getColor()){
+				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor().compareTo(king.getColor())!=0){
 					tempBoard[tempX][tempY] = tempKing;
 					tempBoard[king.x][king.y] = null;
-				
-					for(int i=0; i<board.length; i++){
+					tempBoard[oppKing.x][oppKing.y] = null;
+					boolean stop = false;
+					
+					for(int i=0; i<board.length && stop!=true; i++){
 						for(int j=0; j<board.length; j++){
 							tempPiece = tempBoard[i][j];
 							if(tempPiece!=null){
 								if(tempPiece.check(tempBoard)){
 									checkCount++;
+									stop = true;
 									break;
 								}
 							}
 						}
 					}
-					tempBoard[tempX][tempY]=null;
+					tempBoard[oppKing.x][oppKing.y] = oppKing;
+					tempBoard[tempX][tempY]=board[tempX][tempY];
 					tempBoard[king.x][king.y]= tempKing;
+				}else{
+					availableSpace--;
 				}
 			}else{
-				checkCount++;
+				availableSpace--;
 			}
+			
 			
 			
 			
@@ -203,26 +249,32 @@ public class Chess {
 			tempX = king.x -1;
 			if(tempX>-1){
 				ChessPiece tempKing = tempBoard[king.x][king.y];
-				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor()!=king.getColor()){
+				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor().compareTo(king.getColor())!=0){
 					tempBoard[tempX][tempY] = tempKing;
 					tempBoard[king.x][king.y] = null;
-				
-					for(int i=0; i<board.length; i++){
+					tempBoard[oppKing.x][oppKing.y] = null;
+					boolean stop=  false;
+					
+					for(int i=0; i<board.length && stop!=true; i++){
 						for(int j=0; j<board.length; j++){
 							tempPiece = tempBoard[i][j];
 							if(tempPiece!=null){
 								if(tempPiece.check(tempBoard)){
 									checkCount++;
+									stop = true;
 									break;
 								}
 							}
 						}
 					}
-					tempBoard[tempX][tempY]=null;
+					tempBoard[oppKing.x][oppKing.y] = oppKing;
+					tempBoard[tempX][tempY]=board[tempX][tempY];
 					tempBoard[king.x][king.y]= tempKing;
+				}else{
+					availableSpace--;
 				}
 			}else{
-				checkCount++;
+				availableSpace--;
 			}
 			
 			
@@ -231,129 +283,169 @@ public class Chess {
 			tempY = king.y +1;
 			if(tempY<8 && tempX>-1){
 				ChessPiece tempKing = tempBoard[king.x][king.y];
-				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor()!=king.getColor()){
+				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor().compareTo(king.getColor())!=0){
 					tempBoard[tempX][tempY] = tempKing;
 					tempBoard[king.x][king.y] = null;
-				
-					for(int i=0; i<board.length; i++){
+					tempBoard[oppKing.x][oppKing.y] = null;
+					boolean stop = false;
+					
+					for(int i=0; i<board.length && stop!=false; i++){
 						for(int j=0; j<board.length; j++){
 							tempPiece = tempBoard[i][j];
 							if(tempPiece!=null){
 								if(tempPiece.check(tempBoard)){
 									checkCount++;
+									stop = true;
 									break;
 								}
 							}
 						}
 					}
-					tempBoard[tempX][tempY]=null;
+					tempBoard[oppKing.x][oppKing.y] = oppKing;
+					tempBoard[tempX][tempY]=board[tempX][tempY];
 					tempBoard[king.x][king.y]= tempKing;
+				}else{
+					availableSpace--;
 				}
 			}else{
-				checkCount++;
+				availableSpace--;
 			}
 			
-			
+
 			
 			//checks right
 			tempX = king.x;
 			tempY = king.y+1;
 			if(tempY<8){
 				ChessPiece tempKing = tempBoard[king.x][king.y];
-				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor()!=king.getColor()){
+				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor().compareTo(king.getColor())!=0){
 					tempBoard[tempX][tempY] = tempKing;
 					tempBoard[king.x][king.y] = null;
-				
-					for(int i=0; i<board.length; i++){
+					tempBoard[oppKing.x][oppKing.y] = null;
+					boolean stop = false;
+					
+					
+					for(int i=0; i<board.length && stop!= true; i++){
 						for(int j=0; j<board.length; j++){
 							tempPiece = tempBoard[i][j];
 							if(tempPiece!=null){
 								if(tempPiece.check(tempBoard)){
 									checkCount++;
+									stop = true;
 									break;
 								}
 							}
 						}
 					}
-					tempBoard[tempX][tempY]=null;
+					tempBoard[oppKing.x][oppKing.y] = oppKing;
+					tempBoard[tempX][tempY]=board[tempX][tempY];
 					tempBoard[king.x][king.y]= tempKing;
+				}else{
+					availableSpace--;
 				}
 			}else{
-				checkCount++;
+				availableSpace--;
 			}
 			
-		
+			
+			
+			
 			//checks down and to the right
 			tempX = king.x+1;
 			tempY = king.y +1;
 			if(tempX<8 && tempY<8){
 				ChessPiece tempKing = board[king.x][king.y];
-				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor()!=king.getColor()){
+				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor().compareTo(king.getColor())!=0){
 					tempBoard[tempX][tempY] = tempKing;
 					tempBoard[king.x][king.y] = null;
-			
-					for(int i=0; i<board.length; i++){
+					tempBoard[oppKing.x][oppKing.y] = null;
+					boolean stop = false;
+					
+					for(int i=0; i<board.length && stop!=true; i++){
 						for(int j=0; j<board.length; j++){
 							tempPiece = tempBoard[i][j];
 							if(tempPiece!=null){
 								if(tempPiece.check(tempBoard)){
+									stop = true;
 									checkCount++;
 									break;
 								}
 							}
 						}
 					}
-					tempBoard[tempX][tempY]=null;
+					tempBoard[oppKing.x][oppKing.y] = oppKing;
+					tempBoard[tempX][tempY]=board[tempX][tempY];
 					tempBoard[king.x][king.y]= tempKing;
+				}else{
+					availableSpace--;
 				}
 			}else{
-				checkCount++;
+				availableSpace--;
 			}
+
+			
+			
 			
 			//checks down
 			tempX = king.x+1;
 			tempY = king.y;
 			if(tempX<8){
 				ChessPiece tempKing = board[king.x][king.y];
-				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor()!=king.getColor()){
+				if(tempBoard[tempX][tempY]==null||tempBoard[tempX][tempY].getColor().compareTo(king.getColor())!=0){
+					
 					tempBoard[tempX][tempY] = tempKing;
 					tempBoard[king.x][king.y] = null;
-				
-					for(int i=0; i<board.length; i++){
+					tempBoard[oppKing.x][oppKing.y] = null;
+					boolean stop = false;
+					
+					for(int i=0; i<board.length && stop!= true; i++){
 						for(int j=0; j<board.length; j++){
 							tempPiece = tempBoard[i][j];
 							if(tempPiece!=null){
 								if(tempPiece.check(tempBoard)){
 									checkCount++;
+									stop = true;
 									break;
 								}
 							}
 						}
 					}
-					tempBoard[tempX][tempY]=null;
+					tempBoard[oppKing.x][oppKing.y] = oppKing;
+					tempBoard[tempX][tempY]=board[tempX][tempY];
 					tempBoard[king.x][king.y]= tempKing;
+				}else{
+					availableSpace--;
 				}
 			}else{
-				checkCount++;
+				availableSpace--;
 			}
 			
-			if(checkCount==8){
-				if(checkCount==0){
+			
+			
+			
+			if(checkCount==availableSpace){
+				if(inCheck==0){
 					System.out.println("draw?");
 					Scanner scanner = new Scanner(System.in);
 					String answer = scanner.next();
 					if(answer.compareToIgnoreCase("draw")==0){
 						System.out.println("Game ends in draw");
+						end = true;
+					}else{
+						end = false;
 					}
 					scanner.close();
 					return;
 				}
+				
 				if(king.getColor()=="white"){
 					System.out.println("Black wins");
+					end = true;
 					whiteKing = null;
 				}else{
 					System.out.println("White wins");
 					blackKing = null;
+					end = true;
 				}
 			}
 			return;
@@ -406,50 +498,82 @@ public class Chess {
 				
 				for(int j= 0; j< board[i].length; j++){
 					if(i==1){
-						//fill black pawns 
-						board[i][j]= new pawn("black",1,j);
+						//fill black pawns
+						board[i][j]=null;
+						blackPiece[i] = board[i][j];
+						//board[i][j]= new pawn("black",1,j);
 					}else if(i==6){
 						//fills white pawns
-						board[i][j] = new pawn("white",6,j);
+						board[i][j] = null;
+						//board[i][j] = new pawn("white",6,j);
+						whitePieces[i] = board[i][j];
 					}else{
-					
+						
 					
 					board[i][j]= null;
+					}
 				}
+				
 			}
-			
 			board[0][0] = new Rook("black", 0,0);
+			blackPiece[8]= board[0][0];
+			
 			//board[0][1] = new Knight("black",0,1);
+			blackPiece[9]= board[0][1];
+			
 			//board[0][2] = new Bishop("black",0,2);
+			blackPiece[10]= board[0][2];
+			
 			board[0][3] = new Queen("black", 0,3);
+			blackPiece[11]= board[0][3];
+			
+			
 			board[0][4] = new King("black",0,4);
+			blackPiece[12] = board[0][4];
 			blackKing = board[0][4];
+			
 			//board[0][5] = new Bishop("black",0,5);
+			blackPiece[13]= board[0][5];
+			
 			//board[0][6] = new Knight("black",0,6);
+			blackPiece[14]= board[0][6];
+			
+			
 			board[0][7] = new Rook("black",0,7);
+			blackPiece[15]= board[0][7];
 			
 			board[7][0] = new Rook("white",7,0);
+			whitePieces[8] = board[7][0];
+			
 			//board[7][1] = new Knight("white",7,1);
+			whitePieces[9] = board[7][1];
+			
 			//board[7][2] = new Bishop("white",7,2);
+			whitePieces[10] = board[7][2];
+			
 			board[7][3] = new Queen("white",7,3);
+			whitePieces[11] = board[7][3];
+			
 			board[7][4] = new King("white",7,4);
 			whiteKing = board[7][4];
+			whitePieces[12] = board[7][4];
+			
 			//board[7][5] = new Bishop("white",7,5);
+			whitePieces[13] = board[7][5];
+			
 			//board[7][6] = new Knight("white",7,6);
+			whitePieces[14] = board[7][6];
+			
 			board[7][7] = new Rook("white",7,7);
+			whitePieces[15] = board[7][7];
 			
-			
-			
-			
-			
-		}
 			return board;
 		}
 		private static boolean validPiece(ChessPiece[][] board, String moveFrom, ChessPiece king){
 
 			//column
-			if(moveFrom.length()>2){
-				System.out.println("Error: invalid input");
+			if(moveFrom.length()!=2){
+				System.out.println("Illegal Move");
 				return false;
 			}
 			int ty = moveFrom.charAt(0)-97;
@@ -462,17 +586,17 @@ public class Chess {
 			
 			//checks for out of boundary entry
 			if(tx>7 ||tx< 0 || ty>7 || ty<0){
-				System.out.println("Error: Invalid input");
+				System.out.println("Illegal Move");
 				return false;
 			}
 			
 			if(board[tx][ty]==null){
-				System.out.println("Error: there is no piece there");
+				System.out.println("Illegal Move");
 				return false;
 			}
 			
 			if(board[tx][ty].getColor()!= king.getColor()){
-				System.out.println("Error: this is not your piece");
+				System.out.println("Illegal Move");
 				return false;
 			}
 			pieceToMove = board[tx][ty];
@@ -501,5 +625,20 @@ public class Chess {
 			}
 			
 			
+		}
+		
+		private static void pieceCount(ChessPiece[] pieces){
+			for(int i= 0; i<pieces.length;i++){
+				if(pieces[i]!=null){
+					if(pieces[i].location.compareTo("null")==0){
+						if(pieces[i].getColor().compareTo(whiteKing.getColor())==0){
+							whitePiecesCount--;
+						}else{
+							blackPiecesCount--;
+						}
+						pieces[i]=null;
+					}
+				}
+			}
 		}
 }

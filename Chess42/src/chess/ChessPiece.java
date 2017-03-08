@@ -6,7 +6,6 @@ public abstract class ChessPiece {
 	 boolean promotion =false;
 	
 	public String color;
-	public static int checkCount = 0;
 	//set by the x and y axis i.e. e5
 	public String location;
 	boolean hasMoved = false;
@@ -26,7 +25,7 @@ public abstract class ChessPiece {
 	}
 	
 	//should't int from and int to be cordiantes.. ?
-	public abstract boolean move(ChessPiece[][]board, int from, int to);
+	public abstract boolean move(ChessPiece[][]board, int toX, int toY);
 	public abstract boolean check(ChessPiece[][]board);
 	
 	
@@ -42,10 +41,10 @@ public abstract class ChessPiece {
 	/*
 	 * to comes in the form of (xy) i.e. e5
 	 */
-	public boolean movePiece(ChessPiece[][] board, String to, int piecesCount, int checkCount){
+	public boolean movePiece(ChessPiece[][] board, String to){
 		//column
 		if(to.length()!=2 ){
-			System.out.println("Error: invalid input, syntatic error");
+			System.out.println("Illegal Move");
 			return false;
 		}
 		int ty = to.charAt(0)-97;
@@ -58,7 +57,7 @@ public abstract class ChessPiece {
 		
 		//checks for out of boundary entry
 		if(tx>7 ||tx< 0 || ty>7 || ty<0){
-			System.out.println("Error: Out of bound");
+			System.out.println("Illegal Move");
 			return false;
 		}
 	
@@ -73,21 +72,17 @@ public abstract class ChessPiece {
 			this.x = tx;
 			this.location = to;
 			if(board[tx][ty]!=null){
-				piecesCount--;
-				board[tx][ty]=null;
+				board[tx][ty].location = "null";
 			}
 			board[oldX][oldY]=null;
+			board[tx][ty]=null;
+			
 			board[tx][ty]= this;
 			
-			if(this.check(board)){
-				checkCount++;
-				System.out.println("Check");
-			}
-			checkCount--;
 			return true;
 		}
 		//checks if King is in check
-		System.out.println("Your move is not valid");
+		System.out.println("Illegal Move, try again");
 		return false;
 		
 	}

@@ -87,7 +87,7 @@ public class Queen extends ChessPiece {
 					System.out.println("your piece is there");
 					return false;
 				}
-				
+				this.hasMoved = true;
 				return true;
 				
 			}
@@ -132,13 +132,14 @@ public class Queen extends ChessPiece {
 				}	
 			}
 			if(tempY!=toY){
-				System.out.println("these is a abustructive stucture in path");
+				//System.out.println("these is a abustructive stucture in path");
 				return false;
 			}
 			if(board[toX][toY]!=null && board[toX][toY].getColor()==this.getColor()){
-				System.out.println("your piece is there");
+				//System.out.println("your piece is there");
 				return false;
 			}
+			this.hasMoved = true;
 			return true;
 		}else{
 			return false;
@@ -158,7 +159,7 @@ public class Queen extends ChessPiece {
 		}
 		if(tempY>=0 && tempX<=7){
 			tempPiece= board[tempX][tempY];
-			if(tempPiece.getType()=="King"&&tempPiece.getColor()!=this.getColor()){
+			if(tempPiece.getType().compareTo("King")==0 &&tempPiece.getColor().compareTo(this.getColor())!=0){
 				return true;
 			}
 		}
@@ -171,7 +172,7 @@ public class Queen extends ChessPiece {
 		}
 		if(tempX<=7){
 			tempPiece= board[tempX][this.y];
-			if(tempPiece.getType()=="King"&&tempPiece.getColor()!=this.getColor()){
+			if(tempPiece.getType().compareTo("King")==0 &&tempPiece.getColor().compareTo(this.getColor())!=0){
 				return true;
 			}
 		}
@@ -186,7 +187,7 @@ public class Queen extends ChessPiece {
 		}
 		if(tempY<8 && tempX<8){
 			tempPiece= board[tempX][tempY];
-			if(tempPiece.getType()=="King"&&tempPiece.getColor()!=this.getColor()){
+			if(tempPiece.getType().compareTo("King")==0 &&tempPiece.getColor().compareTo(this.getColor())!=0){
 				return true;
 			}
 		}
@@ -198,7 +199,7 @@ public class Queen extends ChessPiece {
 		while(tempY<8 &&board[this.x][tempY]==null){tempY++;}
 		if(tempY<8){
 			tempPiece= board[this.x][tempY];
-			if(tempPiece.getType()=="King"&&tempPiece.getColor()!=this.getColor()){
+			if(tempPiece.getType().compareTo("King")==0 &&tempPiece.getColor().compareTo(this.getColor())!=0){
 				return true;
 			}
 		}
@@ -212,7 +213,7 @@ public class Queen extends ChessPiece {
 		}
 		if(tempY<8 && tempX>-1){
 			tempPiece= board[tempX][tempY];
-			if(tempPiece.getType()=="King"&&tempPiece.getColor()!=this.getColor()){
+			if(tempPiece.getType().compareTo("King")==0 &&tempPiece.getColor().compareTo(this.getColor())!=0){
 				return true;
 			}
 		}
@@ -226,7 +227,7 @@ public class Queen extends ChessPiece {
 		}
 		if(tempX>-1){
 			tempPiece= board[tempX][this.y];
-			if(tempPiece.getType()=="King"&&tempPiece.getColor()!=this.getColor()){
+			if(tempPiece.getType().compareTo("King")==0 &&tempPiece.getColor().compareTo(this.getColor())!=0){
 				return true;
 			}
 		}
@@ -241,7 +242,7 @@ public class Queen extends ChessPiece {
 		}
 		if(tempY>-1 && tempX>-1){
 		tempPiece= board[tempX][tempY];
-			if(tempPiece.getType()=="King"&&tempPiece.getColor()!=this.getColor()){
+			if(tempPiece.getType().compareTo("King")==0 &&tempPiece.getColor().compareTo(this.getColor())!=0){
 				return true;
 			}
 		}
@@ -254,7 +255,7 @@ public class Queen extends ChessPiece {
 		while(tempY>-1 &&board[this.x][tempY]==null){tempY--;}
 		if(tempY>-1){
 			tempPiece= board[this.x][tempY];
-			if(tempPiece.getType()=="King"&&tempPiece.getColor()!=this.getColor()){
+			if(tempPiece.getType().compareTo("King")==0 &&tempPiece.getColor().compareTo(this.getColor())!=0){
 				return true;
 			}
 		}

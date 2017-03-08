@@ -53,13 +53,14 @@ public class Rook extends ChessPiece{
 					}
 				}
 				if(temp!=toY){
-					System.out.println("these is a abustructive stucture in path, invalid move");
+					//System.out.println("these is a abustructive stucture in path, invalid move");
 					return false;
 				}
-				if(board[toX][toY]!=null && board[toX][toY].getColor()==this.getColor()){
-					System.out.println("your piece is there");
+				if(board[toX][toY]!=null && board[toX][toY].getColor().compareTo(this.getColor())==0){
+					//System.out.println("your piece is there");
 					return false;
 				}
+				this.hasMoved = true;
 				return true;
 				
 			}else{
@@ -83,11 +84,11 @@ public class Rook extends ChessPiece{
 				
 				
 				if(temp!=toX){
-					System.out.println("these is a abustructive stucture in path, invalid move");
+					//System.out.println("these is a abustructive stucture in path, invalid move");
 					return false;
 				}
-				if(board[toX][toY]!=null && board[toX][toY].getColor()==this.getColor()){
-					System.out.println("your piece is there");
+				if(board[toX][toY]!=null && board[toX][toY].getColor().compareTo(this.getColor())==0){
+					//System.out.println("your piece is there");
 					return false;
 				}
 				this.hasMoved = true;
@@ -102,41 +103,44 @@ public class Rook extends ChessPiece{
 	
 	public boolean check(ChessPiece[][] board){
 		int tempX = this.x-1;
-		int tempY = this.y-1;
+		int tempY = this.y;
 		
 		//looks to the up for king 0-->8
-		while(tempX>-1 && board[tempX][this.y]==null){
+		while(tempX>-1 && board[tempX][tempY]==null){
 			tempX--;
 		}
-		if(tempX!=-1 && board[tempX][this.y].getType()=="King"){
-			if(board[tempX][this.y]!=null && this.getColor() != board[tempX][this.y].getColor()){ return true;}
+		if(tempX>-1 && board[tempX][tempY].getType().compareTo("King")==0){
+			if(board[tempX][tempY]!=null && this.getColor().compareTo(board[tempX][tempY].getColor())!=0){ return true;}
 		}
 		
 		tempX = this.x+1;
 		//checks to the down 8-->1
-		while(tempX< 8 && board[tempX][this.y]==null){
+		while(tempX< 8 && board[tempX][tempY]==null){
 			tempX++;
 		}
-		if(tempX!=8 && board[tempX][this.y].getType()=="King"){
-			if(board[tempX][this.y]!=null && this.getColor() != board[tempX][this.y].getColor()){ return true;}
+		if(tempX<8 && board[tempX][tempY].getType().compareTo("King")==0){
+			if(board[tempX][tempY]!=null && this.getColor().compareTo(board[tempX][tempY].getColor())!=0){ return true;}
 		}
 		//checks left 
-		while(tempY > -1 && board[this.x][tempY]==null){
+		tempX = this.x;
+		tempY = this.y-1;
+		while(tempY > -1 && board[tempX][tempY]==null){
 			tempY--;
 		}
 		
-		if(tempY!=-1 && board[this.x][tempY].getType()=="King"){
-			if(this.getColor() != board[this.x][tempY].getColor()){return true;}
+		if(tempY>-1 && board[tempX][tempY].getType().compareTo("King")==0){
+			if(board[tempX][tempY]!=null && this.getColor().compareTo(board[tempX][tempY].getColor())!=0){ return true;}
 		}
-		
+		tempX = this.x;
 		tempY = this.y+1;
 		//checks right
-		while(tempY< 8 && board[this.x][tempY]==null){
+		while(tempY< 8 && board[tempX][tempY]==null){
 			tempY++;
 		}
 		
-		if(tempY!=8 && board[this.x][tempY].getType() == "King"){
-			if(this.getColor() != board[this.x][tempY].getColor()){ return true;}
+		if(tempY<8 && board[this.x][tempY].getType().compareTo("King")==0){
+			if(board[tempX][tempY]!=null && this.getColor().compareTo(board[tempX][tempY].getColor())!=0){ 
+				return true;}
 		}
 		return false;
 	}

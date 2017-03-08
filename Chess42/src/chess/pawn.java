@@ -18,7 +18,7 @@ public class pawn extends ChessPiece {
 	
 	
 	
-	@Override
+	
 	public boolean move(ChessPiece[][] board, int x, int y) {
 		
 		boolean oneStepAhead,twoStepAhead, diagonalStep;
@@ -113,7 +113,7 @@ public class pawn extends ChessPiece {
 		return output;
 	}
 	
-	@Override
+	
 	public boolean check(ChessPiece[][] board) {
 		
 		
