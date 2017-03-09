@@ -56,13 +56,27 @@ public class pawn extends ChessPiece {
 				
 			this.promotion =  (this.color.equals("black") && y == 7);  // checking if its black and reaches all the to the white territoyr
 			
-			this.promotion =  (this.color.equals("white") && x == 0); // checking if its white and reaches all the to the black territory		
-						
+				if (!this.promotion){
+					
+						this.promotion =  (this.color.equals("white") && x == 0); // checking if its white and reaches all the to the black territory		
+				}		
 		}
 		else if (twoStepAhead){ // if the coordiates matches with two step ahead
 			
 			output = (this.hasMoved == false) &&	 (board[x][y]== null); //all condition matches
-			el_pessant = true;
+			
+			if (output 
+				&&((this.color.equalsIgnoreCase("White")&& board[this.x-1][this.y] == null)
+				|| (this.color.equalsIgnoreCase("Black") && board[this.x+1][this.y]== null))){
+				
+				el_pessant = true;
+				output = true;
+				
+			}else{
+				
+				output = false;
+			}
+			
 				
 		}
 		else if (diagonalStep){
@@ -90,12 +104,15 @@ public class pawn extends ChessPiece {
 				this.promotion =  (this.color.equals("white") && x == 0); // checking if its white and reaches all the to the black territory	
 			
 			}
-			/**
-			 * 
-			 */
-			//might need to do the swap here on the spot
+			
 		}
 		
+		
+		if (this.promotion){
+			
+			
+			board[this.x][this.y] = new Queen(this.color, this.x,this.y);
+		}
 		
 		
 		if (output){ // if it will move to the new location, we need to do the follwing
@@ -112,7 +129,7 @@ public class pawn extends ChessPiece {
 		return output;
 	}
 	
-	@Override
+	
 	public boolean check(ChessPiece[][] board) {
 		
 		
