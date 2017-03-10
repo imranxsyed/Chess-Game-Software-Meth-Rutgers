@@ -1,0 +1,165 @@
+Commented Code
+
+pass down y<7
+
+/*if (board[downJump][this.y+1] != null 
+						&& board[downJump][this.y+1].type.equalsIgnoreCase("King")
+						&& !(board[downJump][this.y+1].color.equalsIgnoreCase(this.color))){
+						
+						return true;
+					}*/
+					
+					
+pass down y>0 
+
+/*if (board[downJump][this.y-1] != null 
+						&& board[downJump][this.y-1].type.equalsIgnoreCase("King")
+						&& !(board[downJump][this.y-1].color.equalsIgnoreCase(this.color))){
+						
+						return true;
+					}*/
+					
+					
+					
+pass up y < 7
+
+/*if (board[upJump][this.y+1] != null 
+						&& board[upJump][this.y+1].type.equalsIgnoreCase("King")
+						&& !(board[upJump][this.y+1].color.equalsIgnoreCase(this.color))){
+						
+						return true;
+					}*/
+				
+				
+pass up y>0
+
+/*	if (board[upJump][this.y-1] != null 
+						&& board[upJump][this.y-1].type.equalsIgnoreCase("King")
+						&& !(board[upJump][this.y-1].color.equalsIgnoreCase(this.color))){
+						
+						return true;
+					}*/
+					
+					
+					
+					
+right side x >0 
+
+/*if (board[x-1][rightJump]!=null
+					&& board[x-1][rightJump].type.equalsIgnoreCase("King")
+					&& (!board[x-1][rightJump].color.equalsIgnoreCase(this.color))){
+					
+					return true;
+				}*/
+				
+right side x<7
+
+
+/*if (board[x+1][rightJump]!=null
+						&& board[x+1][rightJump].type.equalsIgnoreCase("King")
+						&& (!board[x+1][rightJump].color.equalsIgnoreCase(this.color))){
+						
+						return true;
+					}	*/
+					
+					
+					
+left side x > 0
+
+/*if (board[x-1][leftJump]!=null
+					&& board[x-1][leftJump].type.equalsIgnoreCase("King")
+					&& (!board[x-1][leftJump].color.equalsIgnoreCase(this.color))){
+					
+					return true;
+				}*/
+				
+				
+left side x<7
+
+/*if (board[x+1][leftJump]!=null
+						&& board[x+1][leftJump].type.equalsIgnoreCase("King")
+						&& (!board[x+1][leftJump].color.equalsIgnoreCase(this.color))){
+						
+						return true;
+					}	*/
+					
+					
+					
+					
+					
+BISHOPPP
+
+
+upRight
+
+			int pathX = this.x-1;
+			int pathY = this.y+1;
+
+/*while (pathX >= x+1 && pathY <=y-1){
+				
+				if (board[pathX][pathY] != null){
+					
+					System.out.println("Illegal move, try again.");
+					return false;
+				}
+				
+				pathX--;
+				pathY++;
+			}
+			return  (board[x][y] == null) || (board[x][y]!= null && (!board[x][y].color.equalsIgnoreCase(this.color))); */
+
+
+upLeft
+
+			int pathX = this.x-1;
+			int pathY = this.y-1;
+/*	while (pathX >= x+1 && pathY >=y+1){
+				
+				if (board[pathX][pathY]!=null){
+					
+					System.out.println("Illegal move, try again.");
+					return false;
+				}
+				
+				pathX--;
+				pathY--;
+			}
+			
+			return  (board[x][y] == null) || (board[x][y]!= null && (!board[x][y].color.equalsIgnoreCase(this.color)));*/
+			
+			
+DownRight
+
+			int pathX = this.x+1;
+			int pathY = this.y+1;
+/*while (pathX <= x-1 && pathY <=y-1){
+				
+				if (board[pathX][pathY] !=null){
+					
+					System.out.println("Illegal move, try again.");
+					return false;
+				}
+				
+				pathX++;
+				pathY++;
+			}
+			return  (board[x][y] == null) || (board[x][y]!= null && (!board[x][y].color.equalsIgnoreCase(this.color)));*/
+			
+			
+DownLeft
+
+			int pathX = this.x+1;
+			int pathY = this.y-1;
+/*	while (pathX <= x-1 && pathY >=y+1){
+				
+				
+					if (board[pathX][pathY] !=null){
+					
+					System.out.println("Illegal move, try again.");
+					return false;
+				}
+					pathX++;
+					pathY--;
+			}
+			
+			return  (board[x][y] == null) || (board[x][y]!= null && (!board[x][y].color.equalsIgnoreCase(this.color)));*/
