@@ -116,6 +116,7 @@ public class Chess {
 		 * they will lose
 		 * 
 		 * king has at most 8 possible options
+		 * @author Pedro Cruz
 		 * @param king opposite king 
 		 * @param board
 		 */
@@ -455,6 +456,11 @@ public class Chess {
 			}
 			return;
 		}
+		/**
+		 * Prints the table after each successful move
+		 * @param board
+		 * @author Pedro Cruz
+		 */
 		public static void printTable(ChessPiece[][] board){
 			
 			boolean emp = true;
@@ -496,7 +502,11 @@ public class Chess {
 		return;
 		
 		}
-		
+		/**
+		 * Created a board by generatting a double array of ChessPiece setting the pieces by calling the subsets in the correct position. All empty/unoccupied pieces are set to null.
+		 * @return
+		 * @author Pedro Cruz
+		 */
 		private static ChessPiece[][] createTable(){
 			ChessPiece[][] board= new ChessPiece[8][8];
 			for(int i= 0; i< board.length ;i++ ){
@@ -555,6 +565,15 @@ public class Chess {
 			
 			return board;
 		}
+		/**
+		 * Checks if the piece that the player is trying to move belongs to them.
+		 * @param board
+		 * @param moveFrom
+		 * @param king
+		 * @return boolean
+		 * @author Pedro Cruz
+		 */
+		
 		private static boolean validPiece(ChessPiece[][] board, String moveFrom, ChessPiece king){
 
 			//column
@@ -612,7 +631,11 @@ public class Chess {
 			
 			
 		}
-		
+		/**
+		 * Keeps count of the current pieces that each player has.
+		 * @param pieces
+		 * @author Pedro Cruz
+		 */
 		private static void pieceCount(ChessPiece[] pieces){
 			for(int i= 0; i<pieces.length;i++){
 				if(pieces[i]!=null){

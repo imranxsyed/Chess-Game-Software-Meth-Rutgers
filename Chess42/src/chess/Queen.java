@@ -1,8 +1,18 @@
 package chess;
-
+/**
+ * This is the Queen class, a subclass of the abstract class ChessPiece. A Queen is defined by its ability to move diagonally, vertically, or horizontally as long as it does not reach out of the board. 
+ * @author Pedro Cruz
+ *
+ */
 public class Queen extends ChessPiece {
 
-	
+	/**
+	 * Queens constructors. Initializes them to the default location when creating a table. 
+	 * @param color
+	 * @param x
+	* @author Pedro Cruz
+	 * @param y
+	 */
 	public Queen(String color, int x, int y){
 		type = "Queen";
 		if(color =="white"){
