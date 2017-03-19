@@ -17,7 +17,16 @@ import java.util.Scanner;
  *
  */
 //hello
-
+/**
+ * This is the Chess class in which the board will be generated from the createTable method. 
+ * Board is generated from a double array of the abstract class ChessPiece. 
+ * This is a two player game in which one player is white and the second player is black.
+ * As the rules dictate white player will go first.
+ * Movements are indicated in the form column, row in which the column ranges from a-h and row 8-1.
+ * Each player has has 16 pieces and the objective of this game is to take the King of their opponent. 
+ * @author Pedro Cruz
+ *
+ */
 public class Chess {
 		
 	
@@ -58,6 +67,15 @@ public class Chess {
 				userInput = scan.nextLine();
 				tok = userInput.split("\\s+");
 				moveFrom = tok[0];
+				if(tok.length<2){
+					if(moveFrom.compareToIgnoreCase("resign")==0){
+						end = true;
+						continue;
+					}else{
+						System.out.println("illegal move");
+						continue;
+					}
+				}
 				moveTo = tok[1];
 				if(tok.length>2){
 					answ = tok[2];
@@ -68,9 +86,7 @@ public class Chess {
 					}
 				}
 				if(whitesTurn){
-					if(moveFrom.equalsIgnoreCase("resign")){
-						end = true;
-					}else if(validPiece(board, moveFrom, whiteKing)){
+					if(validPiece(board, moveFrom, whiteKing)){
 						if(pieceToMove.movePiece(board, moveTo)){
 							if(pieceToMove.check(board)){
 								blackInCheck = 1;
@@ -83,10 +99,7 @@ public class Chess {
 						}
 					}
 				}else{
-					if(moveFrom.equalsIgnoreCase("resign")){
-						end= true;
-					}
-					else if(validPiece(board, moveFrom, blackKing)){
+					if(validPiece(board, moveFrom, blackKing)){
 						if(pieceToMove.movePiece(board, moveTo)){
 							if(pieceToMove.check(board)){
 								whiteInCheck = 1;
