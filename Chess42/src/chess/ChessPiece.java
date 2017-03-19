@@ -126,8 +126,6 @@ public abstract class ChessPiece {
 				board[tx][ty].location = "null";
 			}
 			board[oldX][oldY]=null;
-			board[tx][ty]=null;
-			
 			board[tx][ty]= this;
 			
 			return true;

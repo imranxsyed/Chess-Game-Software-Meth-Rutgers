@@ -105,8 +105,6 @@ public class pawn extends ChessPiece {
 			
 		}else{
 			
-			System.out.println("Illegal Move, try again\n");
-			
 		}
 		
 		

@@ -1,6 +1,4 @@
 package chess;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -29,8 +27,8 @@ public class Chess {
 		static ChessPiece pieceToMove;
 		static ChessPiece[][] board;
 		static boolean end;
-		static int whitePiecesCount = 16;
-		static int blackPiecesCount = 16;
+		static int whitePiecesCount;
+		static int blackPiecesCount;
 		static ChessPiece[] whitePieces = new ChessPiece[16];
 		static ChessPiece[] blackPiece = new ChessPiece[16];
 		static int whiteInCheck  =0;
@@ -39,7 +37,8 @@ public class Chess {
 		public static void main(String[]args){
 			
 			
-			
+			whitePiecesCount = 16;
+			blackPiecesCount = 16;
 			board = createTable(); 
 			end = false;
 			boolean whitesTurn = true;
@@ -95,14 +94,21 @@ public class Chess {
 						}
 					}
 				}
-				if(blackKing.location =="null"){
-					System.out.println("White Wins");
-					end = true;
+				if(end != true){
+					if(blackKing.location =="null"){
+						System.out.println("White Wins");
+						end = true;
+					}
+					if(whiteKing.location == "null"){
+						System.out.println("Black player Wins");
+						end = true;
+					}
+					if(whitePiecesCount==1 && blackPiecesCount ==1){
+						end = true;
+					}
 				}
-				if(whiteKing.location == "null"){
-					System.out.println("Black player Wins");
-					end = true;
-				}
+				
+				System.out.println();
 			}
 			
 			//updates the board
@@ -429,13 +435,13 @@ public class Chess {
 			
 			
 			
-			if(checkCount==availableSpace){
+			if(checkCount==availableSpace && checkCount!=0){
 				if(inCheck==0){
 					System.out.print(" draw?");
 					Scanner scanner = new Scanner(System.in);
 					String answer = scanner.next();
 					if(answer.compareToIgnoreCase("draw")==0){
-						System.out.println("Game ends in draw");
+						System.out.println("draw");
 						end = true;
 					}else{
 						end = false;
@@ -498,7 +504,6 @@ public class Chess {
 				System.out.print(" "+column.charAt(i)+" ");
 			}
 		System.out.println();
-		System.out.println();
 		return;
 		
 		}
@@ -509,19 +514,18 @@ public class Chess {
 		 */
 		private static ChessPiece[][] createTable(){
 			ChessPiece[][] board= new ChessPiece[8][8];
+			
 			for(int i= 0; i< board.length ;i++ ){
 				
 				for(int j= 0; j< board[i].length; j++){
 					if(i==1){
 						//fill black pawns
-						//board[i][j]=null;
-						blackPiece[i] = board[i][j];
 						board[i][j]= new pawn("black",1,j);
+						blackPiece[j] = board[i][j];
 					}else if(i==6){
 						//fills white pawns
-						//board[i][j] = null;
 						board[i][j] = new pawn("white",6,j);
-						whitePieces[i] = board[i][j];
+						whitePieces[j] = board[i][j];
 					}else{
 						board[i][j]= null;
 					}
