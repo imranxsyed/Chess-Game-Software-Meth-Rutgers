@@ -27,10 +27,8 @@ public class Chess {
 		static ChessPiece pieceToMove;
 		static ChessPiece[][] board;
 		static boolean end;
-		static int whitePiecesCount;
-		static int blackPiecesCount;
-		static ChessPiece[] whitePieces = new ChessPiece[16];
-		static ChessPiece[] blackPiece = new ChessPiece[16];
+		//static ChessPiece[] whitePieces = new ChessPiece[16];
+		//static ChessPiece[] blackPiece = new ChessPiece[16];
 		static int whiteInCheck  =0;
 		static int blackInCheck  =0;
 		public static Scanner scan = new Scanner(System.in);
@@ -38,8 +36,6 @@ public class Chess {
 		public static void main(String[]args){
 			
 			
-			whitePiecesCount = 1;
-			blackPiecesCount = 1;
 			board = createTable(); 
 			end = false;
 			boolean whitesTurn = true;
@@ -76,7 +72,6 @@ public class Chess {
 						end = true;
 					}else if(validPiece(board, moveFrom, whiteKing)){
 						if(pieceToMove.movePiece(board, moveTo)){
-							pieceCount(blackPiece);
 							if(pieceToMove.check(board)){
 								blackInCheck = 1;
 								System.out.println("check");
@@ -93,7 +88,6 @@ public class Chess {
 					}
 					else if(validPiece(board, moveFrom, blackKing)){
 						if(pieceToMove.movePiece(board, moveTo)){
-							pieceCount(whitePieces);
 							if(pieceToMove.check(board)){
 								whiteInCheck = 1;
 								System.out.println("check");
@@ -530,11 +524,11 @@ public class Chess {
 					if(i==1){
 						//fill black pawns
 						board[i][j]= new pawn("black",1,j);
-						blackPiece[j] = board[i][j];
+						//blackPiece[j] = board[i][j];
 					}else if(i==6){
 						//fills white pawns
 						board[i][j] = new pawn("white",6,j);
-						whitePieces[j] = board[i][j];
+						//whitePieces[j] = board[i][j];
 					}else{
 						board[i][j]= null;
 					}
@@ -542,39 +536,39 @@ public class Chess {
 				
 			}
 			board[0][0] = new Rook("black", 0,0);
-			blackPiece[8]= board[0][0];
+			//blackPiece[8]= board[0][0];
 			board[0][1] = new Knight("black",0,1);
-			blackPiece[9]= board[0][1];
+			//blackPiece[9]= board[0][1];
 			board[0][2] = new Bishop("black",0,2);
-			blackPiece[10]= board[0][2];
+			//blackPiece[10]= board[0][2];
 			board[0][3] = new Queen("black", 0,3);
-			blackPiece[11]= board[0][3];
+			//blackPiece[11]= board[0][3];
 			board[0][4] = new King("black",0,4);
-			blackPiece[12] = board[0][4];
+			//blackPiece[12] = board[0][4];
 			blackKing = board[0][4];
 			board[0][5] = new Bishop("black",0,5);
-			blackPiece[13]= board[0][5];
+			//blackPiece[13]= board[0][5];
 			board[0][6] = new Knight("black",0,6);
-			blackPiece[14]= board[0][6];
+			//blackPiece[14]= board[0][6];
 			board[0][7] = new Rook("black",0,7);
-			blackPiece[15]= board[0][7];
+			//blackPiece[15]= board[0][7];
 			board[7][0] = new Rook("white",7,0);
-			whitePieces[8] = board[7][0];
+			//whitePieces[8] = board[7][0];
 			board[7][1] = new Knight("white",7,1);
-			whitePieces[9] = board[7][1];
+			//whitePieces[9] = board[7][1];
 			board[7][2] = new Bishop("white",7,2);
-			whitePieces[10] = board[7][2];
+			//whitePieces[10] = board[7][2];
 			board[7][3] = new Queen("white",7,3);
-			whitePieces[11] = board[7][3];
+			//whitePieces[11] = board[7][3];
 			board[7][4] = new King("white",7,4);
 			whiteKing = board[7][4];
-			whitePieces[12] = board[7][4];
+			//whitePieces[12] = board[7][4];
 			board[7][5] = new Bishop("white",7,5);
-			whitePieces[13] = board[7][5];
+			//whitePieces[13] = board[7][5];
 			board[7][6] = new Knight("white",7,6);
-			whitePieces[14] = board[7][6];
+			//whitePieces[14] = board[7][6];
 			board[7][7] = new Rook("white",7,7);
-			whitePieces[15] = board[7][7];
+			//whitePieces[15] = board[7][7];
 			
 			return board;
 		}
@@ -644,33 +638,13 @@ public class Chess {
 			
 			
 		}
-		/**
-		 * Keeps count of the current pieces that each player has.
-		 * @param pieces
-		 * @author Pedro Cruz
-		 */
-		private static void pieceCount(ChessPiece[] pieces){
-			for(int i= 0; i<pieces.length;i++){
-				if(pieces[i]!=null){
-					if(pieces[i].location.compareTo("null")==0){
-						if(pieces[i].getColor().compareTo(whiteKing.getColor())==0){
-							whitePiecesCount--;
-						}else{
-							blackPiecesCount--;
-						}
-						pieces[i]=null;
-					}
-				}
-			}
-		}
+
 		
 		public static boolean isDraw(){
-			if(whitePiecesCount==1 && blackPiecesCount ==1){
-				String answer = scan.nextLine();
+			String answer = scan.nextLine();
 				if(answer.compareToIgnoreCase("draw")==0){
 					return true;
 				}
-			}
-			return false;
+				return false;
 		}
 }
