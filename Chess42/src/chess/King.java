@@ -1,7 +1,17 @@
  package chess;
-
+/**
+ * This is the King class extended form the ChessPiece class
+ * @author Pedro Cruz
+ *
+ */
 public class King extends ChessPiece {
-	
+	/**
+	 * This is the King piece constructor, taking in the color specific to this location and the coordinated at which the piece will initially be when called.
+	 * @author Pedro Cruz
+	 * @param color String
+	 * @param x int 
+	 * @param y int
+	 */
 	public King(String color, int x, int y){
 		type = "King";
 		if(color =="white"){
@@ -18,6 +28,11 @@ public class King extends ChessPiece {
 			name = "bK";
 		}
 	}
+	/**
+	 * 
+	 * Kings move Piece. Rules specific to the Kings legal moves are defined here and are used to see if the coordinated where the piece will be going to violate or not these rules.
+	 * @author Pedro Cruz
+	 */
 	public  boolean move(ChessPiece[][] board, int toX, int toY){
 	
 		int newX = Math.abs(this.x - toX);
@@ -65,7 +80,12 @@ public class King extends ChessPiece {
 			}
 		}
 	}
-	
+	/**
+	 * 
+	 * 
+	 * This check method checks to see if after successful movement of piece if it puts the opponent in check by looking for the the opponents king obeying the king's move rules.
+	 * @author Pedro Cruz
+	 */
 	public boolean check(ChessPiece[][] board){
 		
 		int tempX = this.x;

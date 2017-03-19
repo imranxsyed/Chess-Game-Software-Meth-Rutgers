@@ -1,7 +1,17 @@
 package chess;
-
+/**
+ * This is the root class. The rook is allowed to move in left or right or up or down from one end to the board to the next in one move. The Rook can also engage in castling should both the king and root have not moved prior
+ * @author Pedro Cruz
+ *
+ */
 public class Rook extends ChessPiece{
-	
+	/**
+	 * Root constructor taking in color, and coordinated x and y. Also location is set to a default state depending on the color that is sent in and the y coordinate. 
+	 * @param color
+	 * @param x
+	 * @param y
+	 * @author Pedro Cruz
+	 */
 	public Rook(String color, int x, int y){
 		type = "Rook";
 		if(color =="white"){
@@ -26,7 +36,10 @@ public class Rook extends ChessPiece{
 			name = "bR";
 		}
 	}
-	
+	/**
+	 * This is the override abstract method move, from the ChessPiece class. There rules specified on what is a legal move, specific to the Rook piece are implemented here. NOTE: Rook can only move in one direction either left or up or right or down. No diagnal move is allowed.
+	 * @author Pedro Cruz 
+	 */
 	public boolean move(ChessPiece[][] board, int toX, int toY){
 		
 		int newX = Math.abs(this.x - toX);
@@ -100,7 +113,10 @@ public class Rook extends ChessPiece{
 			return false;
 		}
 	}
-	
+	/**
+	 * Rook check method. Overriding the check method of the abstract class ChessPiece. Checks if after successful move if the Rook is not in position to attack the opponents king should the opponent not move their king.
+	 * @author Pedro Cruz
+	 */
 	public boolean check(ChessPiece[][] board){
 		int tempX = this.x-1;
 		int tempY = this.y;

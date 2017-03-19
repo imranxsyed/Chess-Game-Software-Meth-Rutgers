@@ -62,7 +62,9 @@ public class Chess {
 				moveFrom = scan.next();
 				moveTo = scan.next();
 				if(whitesTurn){
-					if(validPiece(board, moveFrom, whiteKing)){
+					if(moveFrom.equalsIgnoreCase("resign")){
+						end = true;
+					}else if(validPiece(board, moveFrom, whiteKing)){
 						if(pieceToMove.movePiece(board, moveTo)){
 							pieceCount(blackPiece);
 							if(pieceToMove.check(board)){
@@ -76,7 +78,10 @@ public class Chess {
 						}
 					}
 				}else{
-					if(validPiece(board, moveFrom, blackKing)){
+					if(moveFrom.equalsIgnoreCase("resign")){
+						end= true;
+					}
+					else if(validPiece(board, moveFrom, blackKing)){
 						if(pieceToMove.movePiece(board, moveTo)){
 							pieceCount(whitePieces);
 							if(pieceToMove.check(board)){
@@ -425,7 +430,7 @@ public class Chess {
 			
 			if(checkCount==availableSpace){
 				if(inCheck==0){
-					System.out.println("draw?");
+					System.out.print(" draw?");
 					Scanner scanner = new Scanner(System.in);
 					String answer = scanner.next();
 					if(answer.compareToIgnoreCase("draw")==0){
