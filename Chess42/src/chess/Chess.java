@@ -33,19 +33,21 @@ public class Chess {
 		static ChessPiece[] blackPiece = new ChessPiece[16];
 		static int whiteInCheck  =0;
 		static int blackInCheck  =0;
+		public static Scanner scan = new Scanner(System.in);
 		
 		public static void main(String[]args){
 			
 			
-			whitePiecesCount = 16;
-			blackPiecesCount = 16;
+			whitePiecesCount = 1;
+			blackPiecesCount = 1;
 			board = createTable(); 
 			end = false;
 			boolean whitesTurn = true;
-			Scanner scan;
+			String userInput = "";
 			String moveFrom;
 			String moveTo;
-			
+			String answ= "";
+			String[] tok;
 			while(end!=true){
 				printTable(board);
 				System.out.println();
@@ -57,9 +59,18 @@ public class Chess {
 					System.out.print("Blacks move: ");
 				}
 				
-				scan = new Scanner(System.in);
-				moveFrom = scan.next();
-				moveTo = scan.next();
+				userInput = scan.nextLine();
+				tok = userInput.split("\\s+");
+				moveFrom = tok[0];
+				moveTo = tok[1];
+				if(tok.length>2){
+					answ = tok[2];
+					if(answ.compareToIgnoreCase("draw?")==0){
+						if(isDraw()){
+							end = true;
+						}
+					}
+				}
 				if(whitesTurn){
 					if(moveFrom.equalsIgnoreCase("resign")){
 						end = true;
@@ -103,9 +114,7 @@ public class Chess {
 						System.out.println("Black player Wins");
 						end = true;
 					}
-					if(whitePiecesCount==1 && blackPiecesCount ==1){
-						end = true;
-					}
+					
 				}
 				
 				System.out.println();
@@ -653,5 +662,15 @@ public class Chess {
 					}
 				}
 			}
+		}
+		
+		public static boolean isDraw(){
+			if(whitePiecesCount==1 && blackPiecesCount ==1){
+				String answer = scan.nextLine();
+				if(answer.compareToIgnoreCase("draw")==0){
+					return true;
+				}
+			}
+			return false;
 		}
 }
