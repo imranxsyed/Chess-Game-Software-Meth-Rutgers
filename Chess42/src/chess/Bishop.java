@@ -1,8 +1,25 @@
 package chess;
-
+/**
+ *  
+ *  
+ *  
+ * This is a SubClass of ChessPiece which represents Bishop from the chess game.
+ * It has the ability to move diagonally all the way to the end of of the Vertical or Horizontal coordinates given that the path to the 
+ * new coordinates is clear.
+ * The Bishop replaces the instance of opposite color, If the new coordinates contains an instance of the opposite color.
+ * 
+ *@author Imran Syed.
+ *
+ */
 public class Bishop extends ChessPiece {
 	
-	
+
+	/**
+	 *  Bishop constructor makes an instance of a Bishop class with the given color and x,y .
+	 * @param color This is the color that determines which side each instance belongs to.
+	 * @param x This is the Vertical coordinate in 2D array.
+	 * @param y This is the Horizontal coordinate in 2D arrays.
+	 */
 	public Bishop(String color, int x , int y){
 		
 		
@@ -15,7 +32,16 @@ public class Bishop extends ChessPiece {
 		this.location = column[y]+rows[Math.abs((rows.length-1)-x)]; // setting the location
 	}
 	
-	
+
+	/**
+	 * This is abstract method from  the ChessPiece SuperClass.
+	 * It is called by the movePiece method to determine weather the new coordinates is appropriate to move this instance to the new coordinates.
+	 * It makes sure the new coordinates move diagonally, and also the path to the new coordinates does not contain any other piece of either color.
+	 * @param board  this is the actual board that helps determine the existence of other pieces to the target(x,y) position.
+	 * @param x this is Vertical coordinate for the new target.
+	 * @param y this the Horizontal coordinate for the new target.
+	 * @return boolean returns true if the new coordinates are legal or else returns false.
+	 */
 	public boolean move(ChessPiece[][] board, int x, int y) {
 		
 		
@@ -74,16 +100,19 @@ public class Bishop extends ChessPiece {
 		}
 			
 			System.out.println("Illegal move, try again.");
-			return false;
-			
-		
-		
-		
-		
-		
+			return false;		
 		
 	}
 	
+	
+	/**
+	 * Abstract method from  the SuperClass ChessPiece.
+	 * It is called by the MovePiece Method to determine weather this instance threatens the King of the opposite color after it has moved to its new coordinates,
+	 * and notifies the caller appropriately.
+	 * It checks all possible diagonal ways to check if the King of the opposite color is threatened.
+	 * @param board This is the actual board which helps determine weather this instance threatens  the King of opposite color.
+	 * @return boolean returns true if it does threatens the opposite king else returns false.
+	 */
 	public boolean check(ChessPiece[][] board) {
 		
 		boolean upRight = false, upLeft = false , downRight = false, downLeft = false;
@@ -181,7 +210,7 @@ public class Bishop extends ChessPiece {
 	}
 	
 	
-	public boolean filter(ChessPiece[][] board, int pathX , int pathY , String sings, directionsSort function, int x, int y){
+	private boolean filter(ChessPiece[][] board, int pathX , int pathY , String sings, directionsSort function, int x, int y){
 		
 		
 		
@@ -203,8 +232,16 @@ public class Bishop extends ChessPiece {
 				 || (board[x][y]!= null && (!board[x][y].color.equalsIgnoreCase(this.color)));
 	}
 }
-
-interface directionsSort{
+/**
+ *  
+ * Functional Interface used by Bishop class.
+ * @param x Coordinates: Vertical Coordinates
+ * @param y Coordinates:Horizontal Coordinates
+ *  @method apply: boolean method that returns true if the condition is true or else return false.
+ *
+ *@author Imran Syed.
+ */
+ interface directionsSort{
 	
 	
 	boolean apply(int x , int y, int fx , int fy);

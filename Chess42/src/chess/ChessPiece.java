@@ -14,6 +14,7 @@ public abstract class ChessPiece {
 	String[] rows = {"1","2","3","4","5","6","7","8"};
 	boolean el_pessant = false;
 	 boolean promotion =false;
+	 String prom;
 	/**
 	 * @color
 	 * Color is the color of the piece when created by the subclass, it is either white or black.
@@ -27,6 +28,13 @@ public abstract class ChessPiece {
 	 * Type:  will be used to indicated what type of piece it is. Useful for comparing. 
 	 * @other
 	 * X and Y are the coordinate of the current piece in the table. X is for the rows and Y is the columns.
+	 * @el_pessant
+	 *  Variable used for Pawn instance to determine its vulnerability to be takes out when opposite color is replaced one block behing it 
+	 *  @column
+	 *  Determines the Horizontal position of an instance
+	 *  @rows 
+	 *  Determines the Vertical position of an instance
+	 
 	 * @author Pedro Cruz
 	 */
 	public String color;
@@ -92,7 +100,7 @@ public abstract class ChessPiece {
 	 * @return Boolean: True if successful or False and message print if failed
 	 * @author Pedro Crux
 	 */
-	public boolean movePiece(ChessPiece[][] board, String to){
+	public boolean movePiece(ChessPiece[][] board, String to, String possiblePromotion){
 		//column
 		if(to.length()!=2 ){
 			System.out.println("Illegal move, try again");
@@ -101,6 +109,8 @@ public abstract class ChessPiece {
 		int ty = to.charAt(0)-97;
 		//row
 		int tx = to.charAt(1)-49;
+		
+		this.prom = possiblePromotion;
 		
 		//board is upside down to how out board is made so it converts the value given by user
 		//to a usable value for our array
@@ -125,9 +135,9 @@ public abstract class ChessPiece {
 			if(board[tx][ty]!=null){
 				board[tx][ty].location = "null";
 			}
-			board[oldX][oldY]=null;
-			board[tx][ty]= this;
 			
+			board[tx][ty]= board[oldX][oldY];
+			board[oldX][oldY]=null;
 			return true;
 		}
 		//checks if King is in check

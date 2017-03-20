@@ -87,7 +87,7 @@ public class Chess {
 				}
 				if(whitesTurn){
 					if(validPiece(board, moveFrom, whiteKing)){
-						if(pieceToMove.movePiece(board, moveTo)){
+						if(pieceToMove.movePiece(board, moveTo, tok.length>2? tok[2]:null )){
 							if(pieceToMove.check(board)){
 								blackInCheck = 1;
 								System.out.println("check");
@@ -100,7 +100,7 @@ public class Chess {
 					}
 				}else{
 					if(validPiece(board, moveFrom, blackKing)){
-						if(pieceToMove.movePiece(board, moveTo)){
+						if(pieceToMove.movePiece(board, moveTo, null)){
 							if(pieceToMove.check(board)){
 								whiteInCheck = 1;
 								System.out.println("check");

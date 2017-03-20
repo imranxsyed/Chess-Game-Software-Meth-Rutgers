@@ -1,7 +1,25 @@
 package chess;
 
+/**
+ * 
+ * 
+ * This is a Knight class which represents the Knight from the Chess game. SubClass of ChessPiece.
+ * The instance of a Knight class has the ability to  move to a square that is two squares away horizontally and one square vertically, 
+ * or two squares vertically and one square horizontally while jumping over the other pieces if any resides on the way to the new coordinates.
+ * If the new legal coordinates contains an instance of the opposite color, the Knight instance takes it out at the completion of the its movement
+ * to the new position.
+ * 
+ * @author Imran Syed.
+ *
+ */
 public class Knight extends ChessPiece{
 	
+	/**
+	 *  Knight constructor makes an instance of a Knight class with the given color and x,y coordinates.
+	 * @param color This is the color that determines which side each instance belongs to.
+	 * @param x This is the Vertical coordinate in 2D array.
+	 * @param y This is the Horizontal coordinate in 2D arrays.
+	 */
 	public Knight(String color, int x, int y) {
 		
 		this.type = "Knight";
@@ -13,7 +31,14 @@ public class Knight extends ChessPiece{
 		this.location = column[y]+rows[Math.abs((rows.length-1)-x)];
 	}
 	
-	
+	/**
+	 * Abstract method from SuperClass ChessPiece.
+	 * It is called by the MovePiece Method to determine weather this instance threatens the  King of the opposite color after it has moved to its new coordinates,
+	 * and notifies the caller appropriately.
+	 * It checks all possible Knight moves satisfying the out of bound restriction for 2D arrays. 
+	 * @param board This is the actual board which helps determine weather this instance threatens the King of the opposite color.
+	 * @return boolean returns true if it does threaten the opposite color of king else returns false.
+	 */
 	public boolean check(ChessPiece[][] board) {
 		boolean passDown = false, passUp = false, rightSide = false, leftSide = false;
 		
@@ -137,7 +162,20 @@ public class Knight extends ChessPiece{
 		return false;
 	}
 	
-	
+	/**
+	 * This is abstract method from ChessPiece SuperClass.
+	 * It is called by the movePiece method to determine weather the new coordinates is appropriate to replace this instance to the new coordinates.
+	 * It checks weather the new coordinates requires the piece to move two squares up and right or left,
+	 * two squares down and right or left,
+	 * two squares left and up or down ,
+	 * or two squares right and up or down,
+	 * and notifies the caller appropriately.
+	 * 
+	 * @param board  this is the actual board that helps determine the existence of other pieces to the target(x,y) position.
+	 * @param x this is Vertical coordinate for the new target.
+	 * @param y this the Horizontal coordinate for the new target.
+	 * @return boolean returns true if the new coordinates are legal or else returns false.
+	 */
 	public boolean move(ChessPiece[][] board, int x, int y) {
 		
 		boolean moveVertical = false, moveHorizontal = false;
@@ -160,7 +198,7 @@ public class Knight extends ChessPiece{
 		
 		if (moveHorizontal || moveVertical){ // if no possible move was found
 			
-			/**
+			/*
 			 * two possiblility for legal moves are
 			 * the new position is empty
 			 * or the new position contains piece of opposite colo
