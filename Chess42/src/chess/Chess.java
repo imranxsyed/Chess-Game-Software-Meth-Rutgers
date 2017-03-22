@@ -58,10 +58,10 @@ public class Chess {
 				System.out.println();
 				if(whitesTurn){
 					checkElPessant("white");
-					System.out.print("Whites move: ");
+					System.out.print("White's move: ");
 				}else{
 					checkElPessant("black");
-					System.out.print("Blacks move: ");
+					System.out.print("Black's move: ");
 				}
 				
 				userInput = scan.nextLine();
@@ -90,11 +90,13 @@ public class Chess {
 						if(pieceToMove.movePiece(board, moveTo, tok.length>2? tok[2]:null )){
 							if(pieceToMove.check(board)){
 								blackInCheck = 1;
-								System.out.println("check");
+								
 							}else{
 								blackInCheck = 0;
 							}
-							CheckMate(blackKing, board, blackInCheck);
+							if(!CheckMate(blackKing, board, blackInCheck) &&blackInCheck ==1){
+								System.out.println("check");
+							}
 							whitesTurn = false;
 						}
 					}
@@ -103,11 +105,12 @@ public class Chess {
 						if(pieceToMove.movePiece(board, moveTo,tok.length>2? tok[2]:null )){
 							if(pieceToMove.check(board)){
 								whiteInCheck = 1;
-								System.out.println("check");
 							}else{
 								whiteInCheck = 0;
 							}
-							CheckMate(whiteKing, board, whiteInCheck);
+							if(!CheckMate(whiteKing, board, whiteInCheck) && whiteInCheck ==1){
+								System.out.println("check");
+							}
 							whitesTurn = true;
 						}
 					}
@@ -142,7 +145,7 @@ public class Chess {
 		 * @param king opposite king 
 		 * @param board
 		 */
-		public static void CheckMate(ChessPiece king, ChessPiece[][] board, int inCheck){
+		public static boolean CheckMate(ChessPiece king, ChessPiece[][] board, int inCheck){
 			
 			
 			int tempX = king.x;
@@ -453,19 +456,11 @@ public class Chess {
 			
 			if(checkCount==availableSpace && checkCount!=0){
 				if(inCheck==0){
-					System.out.print(" draw?");
-					Scanner scanner = new Scanner(System.in);
-					String answer = scanner.next();
-					if(answer.compareToIgnoreCase("draw")==0){
-						System.out.println("draw");
-						end = true;
-					}else{
-						end = false;
-					}
-					scanner.close();
-					return;
+					System.out.println("Stalemate");
+					end = true;
+					return true;
 				}
-				
+				System.out.println("Checkmate");
 				if(king.getColor()=="white"){
 					System.out.println("Black wins");
 					end = true;
@@ -475,8 +470,9 @@ public class Chess {
 					blackKing = null;
 					end = true;
 				}
+				return true;
 			}
-			return;
+			return false;
 		}
 		/**
 		 * Prints the table after each successful move
@@ -536,6 +532,7 @@ public class Chess {
 				for(int j= 0; j< board[i].length; j++){
 					if(i==1){
 						//fill black pawns
+						
 						board[i][j]= new pawn("black",1,j);
 					}else if(i==6){
 						//fills white pawns
