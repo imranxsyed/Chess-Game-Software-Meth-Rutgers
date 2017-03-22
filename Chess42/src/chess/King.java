@@ -154,6 +154,13 @@ public class King extends ChessPiece {
 		}
 		return false;
 	}
+	/**
+	 * This method is used to castle in chess in which the king moves two pieces closer to either rook as long as the rook and the king has not been previously moved. Further rules of violation will be dictated by castlingCheck method. If success boolean true will be return to else false.
+	 * @param c either 'l' or 'r' for left or right castling
+	 * @param board chess board
+	 * @return boolean
+	 * @author Pedro Cruz
+	 */
 	private boolean castling(char c, ChessPiece[][] board){
 		
 		int toX = this.x;
@@ -223,7 +230,13 @@ public class King extends ChessPiece {
 		return true;
 		
 	}
-	
+	/**
+	 * This method checks whether in movement along the row space is occupied or in attacking position would signify invalid castling.
+	 * @param board
+	 * @param currColumn movement across row either left or right
+	 * @return boolean
+	 * @author Pedro Cruz
+	 */
 	private boolean castlingCheck(ChessPiece[][] board, int currColumn){
 		
 		
