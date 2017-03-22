@@ -39,29 +39,21 @@ public class King extends ChessPiece {
 		int newY = Math.abs(this.y - toY);
 		
 		//checks for possible castling
-		if(this.hasMoved==false && (newY==2) && (newX==0) && (board[this.x][this.y+1]==null) && (board[this.x][this.y+2]==null)){
-			if(board[toX][toY+1]!= null && board[toX][toY+1].getType()=="Rook" && board[toX][toY+1].hasMoved==false){
-				
-				board[toX][toY-1] = board[toX][toY+1];
-				board[toX][toY+1] = null;
-				
-				if(toX==7){
-					//white castling
-					board[toX][toY-1].location = "f1";
-					board[toX][toY-1].x = 7;
-					board[toX][toY-1].y = 5;
-				}else{
-					//black castling
-					board[toX][toY-1].location = "f8";
-					board[toX][toY-1].x = 0;
-					board[toX][toY-1].y = 5;
+		if(this.hasMoved==false && (newY==2) && newX==0){
+			char sideToMove;
+			//left ? right
+			if(this.y>toY){
+				if(board[this.x][0].hasMoved==true){
+					return false;
 				}
-				board[toX][toY-1].hasMoved=true;
-				this.hasMoved = true;
-				return true;
+				sideToMove = 'l';
 			}else{
-				return false;
+				if(board[this.x][7].hasMoved==true){
+					return false;
+				}
+				sideToMove = 'r';
 			}
+			return castling(sideToMove, board);
 		}
 		
 		if(newX>1 || newY>1){
@@ -162,5 +154,107 @@ public class King extends ChessPiece {
 		}
 		return false;
 	}
+	private boolean castling(char c, ChessPiece[][] board){
+		
+		int toX = this.x;
+		int toY;
+		int count  = this.y;
+		if(c == 'l'){
+			//left castling
+			while(count>0){
+				if(castlingCheck(board, count)){
+					return false;
+				}
+				if(board[this.x][--count]!=null){
+					if(count==0){
+						continue;
+					}
+					return false;
+				}
+			}
+			toY = this.y - 2;
+			board[toX][toY+1] = board[toX][0];
+			board[toX][0] = null;
+			if(this.x==7){
+				//left-white castling
+				board[toX][toY+1].location = "d1";
+				board[toX][toY+1].x = 7;
+				board[toX][toY+1].y = 3;
+			}else{
+				//left-black castling
+				board[toX][toY+1].location = "d8";
+				board[toX][toY+1].x = 0;
+				board[toX][toY+1].y = 3;
+			}
+
+			board[toX][toY+1].hasMoved = true;
+		}else{
+			//right castling
+			while(count<7){
+				if(castlingCheck(board, count)){
+					return false;
+				}
+				if(board[this.x][++count]!=null){
+					if(count==7){
+						continue;
+					}
+					return false;
+				}
+			}
+			
+			toY = this.y + 2;
+			board[toX][toY-1] = board[toX][toY+1];
+			board[toX][toY+1] = null;
+			if(this.x==7){
+				//white castling
+				board[toX][toY-1].location = "f1";
+				board[toX][toY-1].x = 7;
+				board[toX][toY-1].y = 5;
+			}else{
+				//black castling
+				board[toX][toY-1].location = "f8";
+				board[toX][toY-1].x = 0;
+				board[toX][toY-1].y = 5;
+			}
+			board[toX][toY-1].hasMoved=true;
+		}
+		
+		this.hasMoved = true;
+		return true;
+		
+	}
 	
+	private boolean castlingCheck(ChessPiece[][] board, int currColumn){
+		
+		
+		ChessPiece tempPiece = null;
+		ChessPiece[][] tempBoard = new ChessPiece[8][8];
+		
+		//created temp board 
+		for(int i = 0; i<board.length; i++){
+			for(int j =0; j<board.length; j++){
+				tempBoard[i][j]= board[i][j];
+			}
+		}
+	
+		
+		tempBoard[this.x][currColumn] = tempBoard[this.x][this.y];
+		
+		if(currColumn!=this.y){
+			tempBoard[this.x][this.y]=null;
+		}
+		
+		for(int i=0; i<tempBoard.length; i++){
+			for(int j=0; j<tempBoard.length; j++){
+				tempPiece = tempBoard[i][j];
+				if(tempPiece!=null){
+					if(tempPiece.check(tempBoard)){
+						return true;
+						}
+					}
+				}
+			}
+		return false;
+				
+	}
 }
