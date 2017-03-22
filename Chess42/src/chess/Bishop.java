@@ -29,7 +29,8 @@ public class Bishop extends ChessPiece {
 		this.type = "Bishop";
 		
 		this.name = color.equalsIgnoreCase("White")? "wB" : "bB"; // setting the name
-		this.location = column[y]+rows[Math.abs((rows.length-1)-x)]; // setting the location
+		//this.location = column[y]+rows[Math.abs((rows.length-1)-x)]; // setting the location
+		this.location = column[y]+rows[Math.abs((rows.length-1)-x)];//setting the location
 	}
 	
 

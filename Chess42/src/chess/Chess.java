@@ -100,7 +100,7 @@ public class Chess {
 					}
 				}else{
 					if(validPiece(board, moveFrom, blackKing)){
-						if(pieceToMove.movePiece(board, moveTo, null)){
+						if(pieceToMove.movePiece(board, moveTo,tok.length>2? tok[2]:null )){
 							if(pieceToMove.check(board)){
 								whiteInCheck = 1;
 								System.out.println("check");
@@ -546,6 +546,7 @@ public class Chess {
 				}
 				
 			}
+			
 			board[0][0] = new Rook("black", 0,0);
 			board[0][1] = new Knight("black",0,1);
 			board[0][2] = new Bishop("black",0,2);

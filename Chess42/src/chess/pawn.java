@@ -138,23 +138,25 @@ public class pawn extends ChessPiece {
 			
 			if(this.promotion){
 				
+				//ChessPiece promPiece =  new Queen(this.color, x,y);  // initially making it a queen
+				
 				
 				if (this.prom == null){
 					
-					 board[this.x][this.y]= new Queen(this.color, this.x,this.y); 
+					 board[this.x][this.y]= new Queen(this.color,x,y);
 					 return output;
 				}
 				
 				prom = prom.toLowerCase();
 				switch(prom){
 				
-				case "n" :board[this.x][this.y]= new Knight(this.color, this.x,this.y); break;
+				case "n" :board[this.x][this.y]=( new Knight(this.color, x,y)); break;
 				
-				case "b" : board[this.x][this.y]= new Bishop(this.color, this.x,this.y); break;
+				case "b" : board[this.x][this.y]= (new Bishop(this.color, x,y)); break;
 				
-				case "r" :  board[this.x][this.y]= new Rook(this.color, this.x,this.y); break;
+				case "r" :  board[this.x][this.y]=( new Rook(this.color, x,y)); break;
 				
-				default :  board[this.x][this.y]= new Queen(this.color, this.x,this.y); break;
+				default :  board[this.x][this.y]= new Queen(this.color,x,y); break;
 				}
 			
 				

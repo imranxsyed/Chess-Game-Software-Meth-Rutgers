@@ -19,15 +19,17 @@ public class Queen extends ChessPiece {
 			this.color = color;
 			this.x = x;
 			this.y = y;
-			location = "d1";
+			//location = "d1";
 			name = "wQ";
 		}else{
 			this.color = color;
 			this.x = x;
 			this.y = y;
-			location = "d8";
+		//	location = "d8";
 			name = "bQ";
 		}
+		
+		this.location = column[y]+rows[Math.abs((rows.length-1)-x)];
 	}
 	public boolean move(ChessPiece[][] board, int toX, int toY) {
 		
